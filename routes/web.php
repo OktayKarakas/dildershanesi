@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GrammerController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TopicController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -29,15 +30,13 @@ Route::middleware('auth')->group(function () {
 // layout body'de padding var.layout footer'da margin var.
 
 
-Route::get('courses/languages/{slug}',function(){
-    return view('course_page');
-});
+Route::get('courses/languages/{slug}',[TopicController::class,'show']);
 
-Route::get('language/{language_slug}/grammer/{grammer_id}',[GrammerController::class, 'show']);
+Route::get('language/{language_slug}/grammer/{grammer_id}', [GrammerController::class, 'show']);
 
-Route::post('language/{language_slug}/grammer/{grammer_id}',function(){
+Route::post('language/{language_slug}/grammer/{grammer_id}', function () {
     return ["test" => "asdasd"];
 });
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
