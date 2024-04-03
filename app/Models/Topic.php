@@ -11,6 +11,8 @@ class Topic extends Model
 
     protected $table = 'topics';
 
+    protected $guarded = [];
+
     public function Konu_anlatimlari(){
         return $this->hasMany(Konu_Anlatimi::class,'topic_id');
     }

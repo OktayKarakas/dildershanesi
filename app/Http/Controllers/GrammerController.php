@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 
 class GrammerController extends Controller
 {
-    public function show($language_slug, $grammer_id)
-    {   
+    public function show($course_slug, $topic_slug)
+    {
+        $course = Course::where('slug', $course_slug)->firstOrFail();
+        $topic = Topic::where('slug', $topic_slug)->firstOrFail();
         return view('grammer_topic',[
-            "language" => $language_slug,
-            "grammer" => $grammer_id
+            "language" => $course,
+            "grammer" => $topic
         ]);
     }
 }

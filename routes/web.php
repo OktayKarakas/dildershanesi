@@ -32,9 +32,11 @@ Route::middleware('auth')->group(function () {
 
 Route::get('courses/languages/{slug}',[TopicController::class,'show']);
 
-Route::get('language/{language_slug}/grammer/{grammer_id}', [GrammerController::class, 'show']);
+Route::get('languages/{course_slug}/grammar/{topic_slug}', [GrammerController::class, 'show'])->middleware('auth');
 
-Route::post('language/{language_slug}/grammer/{grammer_id}', function () {
+Route::get('languages/{course_slug}/word/{topic_slug}', [GrammerController::class, 'show'])->middleware('auth');
+
+Route::post('language/{language_slug}/grammar/{grammar_id}', function () {
     return ["test" => "asdasd"];
 });
 

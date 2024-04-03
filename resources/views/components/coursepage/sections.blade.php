@@ -8,15 +8,27 @@
             $userTopicId = max(1, min($userTopicId, $topicCount));
         @endphp
 
+        {{--        /languages/1/grammar/1--}}
+
         @foreach ($topics as $topic)
             @php
+                $course_slug = request()->route('slug');
                 $isCurrentTopic = $topic->id === $userTopicId;
+                $isTopicPassed = $topic->id < $userTopicId;
+                $link = $topic->isGrammar ? "/languages/$course_slug/grammar/$topic->slug"
+                : "/languages/$course_slug/word/$topic->slug";
             @endphp
 
-            @if ($isCurrentTopic)
-                <a href={{"/courses/languages/{$topic->course_id}/{$topic->id}"}}><x-coursepage.section_current.index /></a>
+            @if($isTopicPassed)
+                <a href={{$link}}>
+                    <x-coursepage.section_passed.index/>
+                </a>
+            @elseif($isCurrentTopic)
+                <a href={{$link}}>
+                    <x-coursepage.section_current.index/>
+                </a>
             @else
-                <x-coursepage.section_locked.index />
+                <x-coursepage.section_locked.index/>
             @endif
         @endforeach
     </div>

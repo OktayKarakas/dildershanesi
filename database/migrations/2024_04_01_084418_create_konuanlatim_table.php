@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('body');
             $table->integer('sirasi');
             $table->foreignId('topic_id');
+            $table->foreignId('course_id');
             $table->timestamps();
         });
     }

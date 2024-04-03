@@ -29,6 +29,13 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        // Check if user came from registration and has a previous URL
+        if ($request->session()->has('previous_url') && $request->session()->has('on_register_page')) {
+            $previousUrl = $request->session()->get('previous_url');
+            $request->session()->forget(['previous_url', 'on_register_page']);
+            return redirect()->to($previousUrl);
+        }
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
@@ -43,6 +50,11 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
+        if ($request->session()->has('previous_url') && $request->session()->has('on_register_page')) {
+            $request->session()->forget(['previous_url', 'on_register_page']);
+        }
+
         return redirect('/');
+
     }
 }

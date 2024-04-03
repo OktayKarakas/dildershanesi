@@ -12,14 +12,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
-
 class RegisteredUserController extends Controller
 {
     /**
      * Display the registration view.
      */
-    public function create(): View
+    public function create(Request $request): View
     {
+        if ($previousUrl = redirect()->getUrlGenerator()->previous()) {
+            $request->session()->put('previous_url', $previousUrl);
+        }
+
+        $request->session()->put('on_register_page', true);
         return view('auth.register');
     }
 
@@ -36,6 +40,9 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        // Store the previous URL to the session if available
+        $previousUrl = $request->input('previous_url');
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -47,6 +54,12 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        // If user came from previous URL, redirect back. Otherwise, redirect to '/'
+
+        if ($request->session()->has('previous_url') && $request->session()->has('on_register_page')) {
+            $request->session()->forget(['previous_url', 'on_register_page']);
+        }
+
+        return $previousUrl ? redirect($previousUrl): redirect('/');
     }
 }

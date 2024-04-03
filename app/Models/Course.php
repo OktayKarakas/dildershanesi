@@ -10,6 +10,7 @@ class Course extends Model
     use HasFactory;
 
     protected $table = 'courses';
+    protected $guarded = [];
 
     public function topics(){
         return $this->hasMany(Topic::class,"course_id");

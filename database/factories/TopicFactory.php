@@ -19,7 +19,9 @@ class TopicFactory extends Factory
         return [
             'course_id' => 1,
             'title' => $this->faker->sentence,
-            'excerpt' => $this->faker->sentence
+            'excerpt' => $this->faker->sentence,
+            'isGrammar' => $this->faker->boolean,
+            'slug' => $this->faker->word,
         ];
     }
 }

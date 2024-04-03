@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('course_id');
             $table->text('title');
             $table->text('excerpt');
+            $table->boolean('isGrammar');
+            $table->text('slug');
             $table->timestamps();
         });
     }

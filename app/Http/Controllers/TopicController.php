@@ -10,7 +10,7 @@ class TopicController extends Controller
 {
     public function show(Request $request, $slug)
     {
-        $course = Course::findOrFail($slug);
+        $course = Course::where('slug', $slug)->firstOrFail();
         $user = auth()->user();
         $user_courses = null;
 
