@@ -34,6 +34,9 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        if ($request->session()->has('previous_url') && $request->session()->has('on_register_page')) {
+            $request->session()->forget(['previous_url', 'on_register_page']);
+        }
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
@@ -55,10 +58,6 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         // If user came from previous URL, redirect back. Otherwise, redirect to '/'
-
-        if ($request->session()->has('previous_url') && $request->session()->has('on_register_page')) {
-            $request->session()->forget(['previous_url', 'on_register_page']);
-        }
 
         return $previousUrl ? redirect($previousUrl): redirect('/');
     }
