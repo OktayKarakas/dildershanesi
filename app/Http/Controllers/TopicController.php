@@ -18,8 +18,10 @@ class TopicController extends Controller
             $user_courses = $user->courses->where("course_id", $course->id)->first();
         }
 
+        $topics = $course->topics;
+
         return view('course_page', [
-            'topics' => Topic::where("course_id", $course->id)->get(),
+            'topics' => $topics,
             'user_courses' => $user_courses,
         ]);
     }

@@ -21,14 +21,14 @@
 
             @if($isTopicPassed)
                 <a href={{$link}}>
-                    <x-coursepage.section_passed.index/>
+                    <x-coursepage.section_passed.index :title="$topic->title" :excerpt="$topic->excerpt"/>
                 </a>
             @elseif($isCurrentTopic)
                 <a href={{$link}}>
-                    <x-coursepage.section_current.index/>
+                    <x-coursepage.section_current.index :title="$topic->title" :excerpt="$topic->excerpt"/>
                 </a>
             @else
-                <x-coursepage.section_locked.index/>
+                <x-coursepage.section_locked.index :title="$topic->title" :excerpt="$topic->excerpt"/>
             @endif
         @endforeach
     </div>
