@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('course_id');
             $table->foreignId('topic_id');
             $table->text('completed_quizes');
+            $table->boolean('isCompleted')->default(false);
             $table->timestamps();
         });
     }

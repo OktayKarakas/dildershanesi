@@ -10,4 +10,12 @@ class User_Course extends Model
     use HasFactory;
     protected $guarded = [];
     protected $table = 'user_courses';
+
+    public function topic(){
+        return $this->belongsTo(Topic::class,"topic_id");
+    }
+
+    public function course(){
+        return $this->belongsTo(Course::class,"course_id");
+    }
 }

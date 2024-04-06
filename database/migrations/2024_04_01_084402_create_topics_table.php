@@ -17,6 +17,8 @@ return new class extends Migration
             $table->text('title');
             $table->text('excerpt');
             $table->boolean('isGrammar');
+            $table->boolean('isQuiz');
+            $table->boolean('isWord');
             $table->text('slug');
             $table->timestamps();
         });

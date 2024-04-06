@@ -25,6 +25,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/settings', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/settings', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/settings', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('languages/{course_slug}/grammar/{topic_slug}', [KonuController::class, 'show']);
+    Route::patch('languages/{course_slug}/grammar/{topic_slug}', [KonuController::class, 'update']);
+    Route::patch('languages/{course_slug}/word/{topic_slug}', [KonuController::class, 'update']);
+    Route::get('languages/{course_slug}/word/{topic_slug}', [KonuController::class, 'show']);
+    Route::get('languages/{course_slug}/quiz/{topic_slug}', [KonuController::class, 'show']);
+    Route::patch('languages/{course_slug}/quiz/{topic_slug}', [KonuController::class, 'update']);
 });
 
 Route::post('/courses/languages/{slug}', [TopicController::class, 'course_register'])->middleware('set.session');
@@ -33,9 +39,8 @@ Route::post('/courses/languages/{slug}', [TopicController::class, 'course_regist
 
 
 Route::get('courses/languages/{slug}',[TopicController::class,'show']);
-Route::get('languages/{course_slug}/grammar/{topic_slug}', [KonuController::class, 'show'])->middleware('auth');
 
-Route::get('languages/{course_slug}/word/{topic_slug}', [KonuController::class, 'show'])->middleware('auth');
+
 
 
 

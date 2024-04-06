@@ -3,29 +3,43 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
-use App\Models\Konu_Anlatimi;
 use App\Models\Topic;
+use App\Models\User_Course;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class KonuController extends Controller
 {
-    public function show($course_slug, $topic_slug)
+    public function show(Request $request, $course_slug, $topic_slug)
     {
         $course = Course::where('slug', $course_slug)->firstOrFail();
         $topic = Topic::where('slug', $topic_slug)->firstOrFail();
+        $user = auth()->user();
+        $user_courses = null;
+
+        if ($user) {
+            $user_courses = $user->courses->where("course_id", $course->id)->first();
+        }
+        if (!isset($user_courses)) {
+            $user_courses = User_Course::create([
+                'user_id' => $user->id,
+                'topic_id' => "1",
+                'course_id' => $course->id,
+                'completed_quizes' => "[]",
+            ]);
+        }
         $current_topic_row_number = Topic::where('course_id', $course->id)
             ->where('id', '<=', $topic->id)
             ->count();
         $next_topic = Topic::where('course_id', $course->id)
             ->skip($current_topic_row_number)
-            ->select('slug','isGrammar')
+            ->select('slug', 'isGrammar', 'isWord', 'isQuiz')
             ->first();
         $previous_topic = Topic::where('course_id', $course->id)
             ->skip($current_topic_row_number - 2) // Skip to the previous row
-            ->select('slug','isGrammar') // Select only the 'slug' column
+            ->select('slug', 'isGrammar', 'isWord', 'isQuiz') // Select only the 'slug' column
             ->first();
         $konu_anlatimi = $course->Konu_anlatimlari()->where('topic_id', $topic->id)->firstOrFail();
-
 
 
         return view('grammer_topic', [
@@ -34,8 +48,56 @@ class KonuController extends Controller
             "konu_anlatimi" => $konu_anlatimi,
             "previous_topic_slug" => $previous_topic->slug ?? null,
             "next_topic_slug" => $next_topic->slug ?? null,
-            "previous_is_grammar" => $previous_topic->isGrammar ?? null,
-            "next_is_grammar" => $next_topic->isGrammar ?? null,
+            "previous_topic_general" => isset($previous_topic) ? ($previous_topic->isGrammar ? 'grammar' : ($previous_topic->isWord ? 'word' : 'quiz')) : null,
+            "next_topic_general" => isset($next_topic) ? ($next_topic->isGrammar ? 'grammar' : ($next_topic->isWord ? 'word' : 'quiz')) : null,
         ]);
+    }
+
+    public function update(Request $request, $course_slug, $topic_slug)
+    {
+        // Find the topic and course
+        $topic = Topic::where('slug', $topic_slug)->firstOrFail();
+        $course = Course::where('slug', $course_slug)->firstOrFail();
+        $next_topic = Topic::where('course_id', $course->id)
+            ->where('id', '>', $topic->id)
+            ->orderBy('id')
+            ->first();
+
+
+        // Get the authenticated user
+        $user = auth()->user();
+
+        // Check if the user is authenticated
+        if (!$user) {
+            return new JsonResponse(['error' => 'User is not authenticated.'], 400);
+        }
+
+        // Find user's enrolled courses
+        $user_courses = $user->courses->where("course_id", $course->id)->first();
+
+        // Check if user is on the correct topic
+        if ($topic->id < $user_courses->topic_id) {
+            $topic_general = $next_topic->isGrammar ? 'grammar' : ($next_topic->isWord ? 'word' : 'quiz');
+            $link = "/languages/$course_slug/$topic_general/$next_topic->slug";
+            return new JsonResponse(['redirect_link' => $link, 'message' => 'No update,Redirecting..'], 200);
+        }
+
+        // Update user's progress
+
+
+        // Prepare redirection link if next topic is found
+        if (isset($next_topic)) {
+            $topic_general = $next_topic->isGrammar ? 'grammar' : ($next_topic->isWord ? 'word' : 'quiz');
+            $link = "/languages/$course_slug/$topic_general/$next_topic->slug";
+            $user_courses->update([
+                'topic_id' => $next_topic->id
+            ]);
+
+            return new JsonResponse(['redirect_link' => $link, 'message' => 'Form submitted successfully.'], 200);
+        }
+
+        // Return error if next topic is not found
+        $main_page_link = "/courses/languages/$course_slug";
+        return new JsonResponse(['redirect_link' => $main_page_link, 'message' => 'Next topic not found redirecting to main page..'], 200);
     }
 }

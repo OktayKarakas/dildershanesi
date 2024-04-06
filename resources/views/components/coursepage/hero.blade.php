@@ -1,6 +1,13 @@
 @props(['user_courses'])
 
-<!-- Hero -->
+@php
+    $devam_et_link = '/';
+    if(isset($user_courses)){
+        $devam_et_link = "/languages/".$user_courses->course->slug."/".($user_courses->topic->isGrammar ? 'grammar' : 'word')."/".$user_courses->topic->slug;
+    }
+@endphp
+
+    <!-- Hero -->
 <div
     class="relative overflow-hidden before:absolute before:top-0 before:start-1/2 before:bg-[url('https://preline.co/assets/svg/examples/squared-bg-element.svg')] before:bg-no-repeat before:bg-top before:size-full before:-z-[1] before:transform before:-translate-x-1/2'https://preline.co/assets/svg/examples-dark/squared-bg-element.svg')]">
     <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-10">
@@ -30,6 +37,11 @@
                         Kursa Başla
                     </button>
                 </form>
+            @else
+                <a href="{{$devam_et_link}}"
+                   class="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-blue-600 to-violet-600 hover:from-violet-600 hover:to-blue-600 border border-transparent text-white text-sm font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white py-3 px-4">
+                    Devam et
+                </a>
             @endif
         </div>
         <!-- End Buttons -->

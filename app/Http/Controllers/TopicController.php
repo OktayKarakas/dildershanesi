@@ -26,10 +26,10 @@ class TopicController extends Controller
         ]);
     }
 
-    public function course_register($request,$slug)
+    public function course_register(Request $request, $slug)
     {
-        if($request->session()->has('is_course_get') && $request->session()->get('course_slug')){
-            $request->session()->forget(['is_course_get','course_slug']);
+        if ($request->session()->has('is_course_get') && $request->session()->get('course_slug')) {
+            $request->session()->forget(['is_course_get', 'course_slug']);
         }
         $course = Course::where('slug', $slug)->firstOrFail();
         $user = auth()->user();

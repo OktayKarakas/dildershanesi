@@ -21,6 +21,8 @@ class TopicFactory extends Factory
             'title' => $this->faker->sentence,
             'excerpt' => $this->faker->sentence,
             'isGrammar' => $this->faker->boolean,
+            'isQuiz' => $this->faker->boolean,
+            'isWord' => $this->faker->boolean,
             'slug' => $this->faker->word,
         ];
     }

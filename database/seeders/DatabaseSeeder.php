@@ -26,5 +26,11 @@ class DatabaseSeeder extends Seeder
             'excerpt' => "This is excerpt",
             'slug' => 'english'
         ]);
+
+        \App\Models\Course::create([
+            'title' => "İngilizce",
+            'excerpt' => "This is excerpt",
+            'slug' => 'english'
+        ]);
     }
 }

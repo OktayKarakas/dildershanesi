@@ -13,8 +13,8 @@
                 $course_slug = request()->route('slug');
                 $isCurrentTopic = $topic->id === $userTopicId;
                 $isTopicPassed = $topic->id < $userTopicId;
-                $link = $topic->isGrammar ? "/languages/$course_slug/grammar/$topic->slug"
-                : "/languages/$course_slug/word/$topic->slug";
+                $topic_general = $topic->isGrammar ? 'grammar' : ($topic->isWord ? 'word' : 'quiz');
+                $link = "/languages/$course_slug/$topic_general/$topic->slug"
             @endphp
 
             @if($isTopicPassed)

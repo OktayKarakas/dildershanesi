@@ -1,10 +1,7 @@
-@props(["title","body","sirasi","next_topic_slug","previous_topic_slug","previous_is_grammar","next_is_grammar"])
+@props(["title","body","sirasi","next_topic_slug","previous_topic_slug","previous_topic_general"])
 @php
     $isFirst = $sirasi <= 1;
-    $isLast = !isset($next_is_grammar);
     $course_name = request()->route('course_slug');
-    $previous_topic_general = $previous_is_grammar ? 'grammar' : 'word';
-    $next_topic_general = $next_is_grammar ? 'grammar' : 'word';
 @endphp
 <div class="max-w-3xl px-4 pt-6 lg:pt-10 pb-12 sm:px-6 lg:px-8 mx-auto">
     <div class="max-w-2xl">
@@ -79,7 +76,7 @@
         <div class="space-y-5 md:space-y-8 break-words">
             {!! $title !!}
             {!! $body !!}
-            
+
         </div>
         <!-- End Content -->
     </div>
@@ -142,14 +139,18 @@
 
             <!-- Button -->
             <div class="relative inline-flex">
-                <a href="{{$isLast ? "/courses/languages/$course_name" : "/languages/english/$next_topic_general/$next_topic_slug"}}"
-                   id="blog-article-share-dropdown"
-                   class="cursor-pointer flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800">
-                    İleri
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="m10 17l5-5l-5-5z"/>
-                    </svg>
-                </a>
+                <form id="next_form" method="post">
+                    @method('PATCH')
+                    @csrf
+                    <button
+                        id="next_button"
+                        class="cursor-pointer flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800">
+                        İleri
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="m10 17l5-5l-5-5z"/>
+                        </svg>
+                    </button>
+                </form>
             </div>
         </div>
     </div>
@@ -180,6 +181,38 @@
                 // Handle response data as needed
                 const responseObject = JSON.parse(data);
                 console.log(responseObject);
+            })
+            .catch(error => {
+                // Handle errors
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    });
+
+    document.getElementById('next_form').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent form submission
+
+        // Collect form data
+        let formData = new FormData(this);
+
+        // Send AJAX request
+        fetch(this.action, {
+            method: 'PATCH',
+            body: formData,
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Parse response body as JSON
+            })
+            .then(data => {
+                // Handle response data as needed
+                console.log(data);
+                // Redirect to the next topic URL
+                window.location.href = data.redirect_link;
             })
             .catch(error => {
                 // Handle errors
