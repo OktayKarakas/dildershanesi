@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\TopicController;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
@@ -29,6 +30,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        if($request->session()->has('is_course_get') && $request->session()->get('course_slug')){
+            $topic = new TopicController();
+            $topic->course_register($request,$request->session()->get('course_slug'));
+        }
         // Check if user came from registration and has a previous URL
         if ($request->session()->has('previous_url') && $request->session()->has('on_register_page')) {
             $previousUrl = $request->session()->get('previous_url');

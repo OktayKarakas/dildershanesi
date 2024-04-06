@@ -8,8 +8,6 @@
             $userTopicId = max(1, min($userTopicId, $topicCount));
         @endphp
 
-        {{--        /languages/1/grammar/1--}}
-
         @foreach ($topics as $topic)
             @php
                 $course_slug = request()->route('slug');

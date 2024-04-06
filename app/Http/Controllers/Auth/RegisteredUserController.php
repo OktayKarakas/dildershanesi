@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\TopicController;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -34,6 +35,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+
         if ($request->session()->has('previous_url') && $request->session()->has('on_register_page')) {
             $request->session()->forget(['previous_url', 'on_register_page']);
         }
@@ -58,6 +60,11 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         // If user came from previous URL, redirect back. Otherwise, redirect to '/'
+
+        if($request->session()->has('is_course_get') && $request->session()->get('course_slug')){
+            $topic = new TopicController();
+            $topic->course_register($request,$request->session()->get('course_slug'));
+        }
 
         return $previousUrl ? redirect($previousUrl): redirect('/');
     }

@@ -7,7 +7,7 @@ use App\Models\Konu_Anlatimi;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 
-class GrammerController extends Controller
+class KonuController extends Controller
 {
     public function show($course_slug, $topic_slug)
     {
