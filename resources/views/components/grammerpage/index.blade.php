@@ -1,4 +1,4 @@
-@props(["title","body","sirasi","next_topic_slug","previous_topic_slug","previous_topic_general"])
+@props(["title","body","sirasi","next_topic_slug","previous_topic_slug","previous_topic_general","isLast"])
 @php
     $isFirst = $sirasi <= 1;
     $course_name = request()->route('course_slug');
@@ -142,6 +142,7 @@
                 <form id="next_form" method="post">
                     @method('PATCH')
                     @csrf
+                    <input hidden name="isLast" value="{{$isLast}}">
                     <button
                         id="next_button"
                         class="cursor-pointer flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800">
@@ -194,11 +195,14 @@
         // Collect form data
         let formData = new FormData(this);
 
+        let formDataJSON = Object.fromEntries(formData.entries());
+
         // Send AJAX request
         fetch(this.action, {
             method: 'PATCH',
-            body: formData,
+            body: JSON.stringify(formDataJSON),
             headers: {
+                'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
             }
         })
@@ -210,7 +214,7 @@
             })
             .then(data => {
                 // Handle response data as needed
-                console.log(data);
+                // console.log(data);
                 // Redirect to the next topic URL
                 window.location.href = data.redirect_link;
             })

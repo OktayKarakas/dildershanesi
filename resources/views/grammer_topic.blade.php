@@ -5,5 +5,6 @@
                          :next_topic_slug="$next_topic_slug"
                          :previous_topic_slug="$previous_topic_slug"
                          :previous_topic_general="$previous_topic_general"
+                         :isLast="$isLast"
     />
 </x-general.layout>

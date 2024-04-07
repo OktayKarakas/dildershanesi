@@ -1,9 +1,9 @@
-@props(['user_courses'])
+@props(['user_course'])
 
 @php
     $devam_et_link = '/';
-    if(isset($user_courses)){
-        $devam_et_link = "/languages/".$user_courses->course->slug."/".($user_courses->topic->isGrammar ? 'grammar' : 'word')."/".$user_courses->topic->slug;
+    if(isset($user_course)){
+        $devam_et_link = "/languages/".$user_course->course->slug."/".($user_course->topic->isGrammar ? 'grammar' : 'word')."/".$user_course->topic->slug;
     }
 @endphp
 
@@ -29,12 +29,21 @@
 
         <!-- Buttons -->
         <div class="mt-8 gap-3 flex justify-center">
-            @if(!isset($user_courses))
+            @if(!isset($user_course))
                 <form method="post">
                     @csrf
                     <button type="submit"
                             class="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-blue-600 to-violet-600 hover:from-violet-600 hover:to-blue-600 border border-transparent text-white text-sm font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white py-3 px-4">
                         Kursa Başla
+                    </button>
+                </form>
+            @elseif($user_course->isCompleted)
+                <form method="post">
+                    @csrf
+                    @method('PATCH')
+                    <button type="submit"
+                            class="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-blue-600 to-violet-600 hover:from-violet-600 hover:to-blue-600 border border-transparent text-white text-sm font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white py-3 px-4">
+                        Kursu Sıfırla
                     </button>
                 </form>
             @else

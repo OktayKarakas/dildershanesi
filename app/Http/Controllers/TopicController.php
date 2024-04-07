@@ -12,17 +12,17 @@ class TopicController extends Controller
     {
         $course = Course::where('slug', $slug)->firstOrFail();
         $user = auth()->user();
-        $user_courses = null;
+        $user_course = null;
 
         if ($user) {
-            $user_courses = $user->courses->where("course_id", $course->id)->first();
+            $user_course = $user->courses->where("course_id", $course->id)->first();
         }
 
         $topics = $course->topics;
 
         return view('course_page', [
             'topics' => $topics,
-            'user_courses' => $user_courses,
+            'user_course' => $user_course,
         ]);
     }
 
@@ -48,5 +48,22 @@ class TopicController extends Controller
             ]);
         }
         return redirect('courses/languages/english');
+    }
+
+    public function course_reset(Request $request, $slug)
+    {
+        $course = Course::where('slug', $slug)->firstOrFail();
+        $user = auth()->user();
+        $user_course = null;
+        if ($user) {
+            $user_course = $user->courses->where("course_id", $course->id)->first();
+            if ($user_course) {
+                $user_course->update([
+                    'isCompleted' => false,
+                    'topic_id' => 1
+                ]);
+                return redirect()->back();
+            }
+        }
     }
 }
