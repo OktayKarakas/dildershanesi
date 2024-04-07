@@ -3,6 +3,7 @@
                          :body="$konu_anlatimi->body"
                          :sirasi="$konu_anlatimi->sirasi"
                          :next_topic_slug="$next_topic_slug"
+                         :topic_general="$topic_general"
                          :previous_topic_slug="$previous_topic_slug"
                          :previous_topic_general="$previous_topic_general"
                          :isLast="$isLast"

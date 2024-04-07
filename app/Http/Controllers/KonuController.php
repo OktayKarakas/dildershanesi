@@ -48,6 +48,7 @@ class KonuController extends Controller
             "konu_anlatimi" => $konu_anlatimi,
             "previous_topic_slug" => $previous_topic->slug ?? null,
             "next_topic_slug" => $next_topic->slug ?? null,
+            "topic_general" => isset($topic) ? ($topic->isGrammar ? 'grammar' : ($topic->isWord ? 'word' : 'quiz')) : null,
             "previous_topic_general" => isset($previous_topic) ? ($previous_topic->isGrammar ? 'grammar' : ($previous_topic->isWord ? 'word' : 'quiz')) : null,
             "next_topic_general" => isset($next_topic) ? ($next_topic->isGrammar ? 'grammar' : ($next_topic->isWord ? 'word' : 'quiz')) : null,
             "isLast" => !isset($next_topic),

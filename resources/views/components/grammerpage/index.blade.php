@@ -1,7 +1,8 @@
-@props(["title","body","sirasi","next_topic_slug","previous_topic_slug","previous_topic_general","isLast"])
+@props(["title","body","sirasi","next_topic_slug","previous_topic_slug","previous_topic_general","isLast","topic_general"])
 @php
     $isFirst = $sirasi <= 1;
     $course_name = request()->route('course_slug');
+    $isWord = $topic_general === 'word';
 @endphp
 <div class="max-w-3xl px-4 pt-6 lg:pt-10 pb-12 sm:px-6 lg:px-8 mx-auto">
     <div class="max-w-2xl">
@@ -74,8 +75,13 @@
 
         <!-- Content -->
         <div class="space-y-5 md:space-y-8 break-words">
-            {!! $title !!}
-            {!! $body !!}
+            {!! $title !!}<br>
+            @if($isWord)
+                <input hidden id="words" name="words" value="{{$body}}">
+            @else
+                {!! $body !!}
+            @endif
+
 
         </div>
         <!-- End Content -->
@@ -158,6 +164,11 @@
 </div>
 
 <script>
+    words_json = (document.getElementById('words') ? document.getElementById('words').value : null) || null;
+    words = JSON.parse(words_json) || null;
+    if (words) {
+        console.log(words);
+    }
     document.getElementById('like_form').addEventListener('submit', function (event) {
         event.preventDefault(); // Prevent form submission
 

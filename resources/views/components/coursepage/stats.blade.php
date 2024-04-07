@@ -2,8 +2,10 @@
 <!-- Features -->
 @php
     $topicCount = count($topics) + 1;
-    $stat = $user_course->topic_id;
-    if (!$user_course->isCompleted) {
+    $stat = $user_course ? $user_course->topic_id : 0;
+    $is_course_completed = $user_course->isCompleted ?? false;
+
+    if (!$is_course_completed) {
         // Ensure $topicCount is greater than 0 and $stat is not 1 to avoid division by zero or incorrect calculation
         if ($topicCount > 0 && $stat !== 1) {
             $percentage = ($stat / $topicCount) * 100;
