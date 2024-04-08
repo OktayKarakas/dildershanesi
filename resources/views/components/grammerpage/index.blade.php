@@ -78,6 +78,18 @@
             {!! $title !!}<br>
             @if($isWord)
                 <input hidden id="words" name="words" value="{{$body}}">
+                <div id="word-card"
+                     class="bg-white rounded-lg p-8 shadow-md max-w-md w-full flex flex-col items-center mx-auto">
+                    <p id="word-asked" class="text-2xl font-semibold mb-4"></p>
+                    <input id="input-word-answer" name="input-word-answer" type="text"
+                           class="border-gray-300 border rounded-md px-4 py-2 mb-4 w-full"
+                           placeholder="Karşılığını giriniz.">
+                    <p id="false-answer-p" class="text-red-400 my-5 hidden">Yanlış Cevap ! Tekrar Deneyin.</p>
+                    <button id="submitBtn"
+                            class="self-end bg-blue-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300">
+                        Submit
+                    </button>
+                </div>
             @else
                 {!! $body !!}
             @endif
@@ -164,11 +176,83 @@
 </div>
 
 <script>
-    words_json = (document.getElementById('words') ? document.getElementById('words').value : null) || null;
-    words = JSON.parse(words_json) || null;
-    if (words) {
-        console.log(words);
+    let words_json = (document.getElementById('words') ? document.getElementById('words').value : null) || null;
+    let words = JSON.parse(words_json) || null;
+    let currentIndex = 0
+    let wordKeys = Object.keys(words);
+    let askingForKeys = true;
+    let random_word = false;
+    let word_row = 0;
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
     }
+
+    // Display current word and wait for user input
+    function displayWord() {
+        // Get current word and its translation
+        let currentWordKey, currentWordValue;
+        if(random_word && currentIndex === 0) {
+            wordKeys = shuffleArray(wordKeys);
+        }
+        currentWordKey = wordKeys[currentIndex];
+        currentWordValue = words[currentWordKey];
+
+        // Display current word
+        document.getElementById("word-asked").textContent = askingForKeys ? currentWordKey : currentWordValue;
+
+        // Reset button color and card background to default when input field is focused
+        document.getElementById("input-word-answer").addEventListener("focus", function () {
+            document.getElementById("submitBtn").classList.remove("bg-red-500");
+            document.getElementById("word-card").classList.remove("bg-red-300");
+            document.getElementById("false-answer-p").classList.add("hidden");
+        });
+
+        document.getElementById("submitBtn").onclick = function () {
+            const userInput = document.getElementById("input-word-answer").value.trim();
+            if ((askingForKeys && userInput === currentWordValue) || (!askingForKeys && userInput === currentWordKey)) {
+                // If user input matches the translation
+                // Change button color and clear input field
+                document.getElementById("submitBtn").classList.remove("bg-red-500");
+                document.getElementById("input-word-answer").value = "";
+
+                // Go to the next word or toggle mode if finished
+                if (currentIndex === wordKeys.length - 1) {
+                    // If finished all words, toggle mode
+                    askingForKeys = !askingForKeys;
+                    word_row++;
+                    if(word_row >= 2) {
+                        random_word = true;
+                    }
+                    currentIndex = 0;
+                } else {
+                    // Go to the next word
+                    currentIndex++;
+                }
+
+                displayWord();
+            } else {
+                // If user input is incorrect
+                // Change button color and card background to red, and show error message
+                document.getElementById("submitBtn").classList.add("bg-red-500");
+                document.getElementById("word-card").classList.add("bg-red-300");
+                document.getElementById("false-answer-p").classList.remove("hidden");
+
+                // You can add additional styling or effects here for incorrect input
+
+                // Clear input field after submission
+                document.getElementById("input-word-answer").value = "";
+            }
+        };
+    }
+
+
+    displayWord();
+
     document.getElementById('like_form').addEventListener('submit', function (event) {
         event.preventDefault(); // Prevent form submission
 
