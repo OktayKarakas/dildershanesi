@@ -4,6 +4,7 @@
     $course_name = request()->route('course_slug');
     $isWord = $topic_general === 'word';
 @endphp
+@vite(['resources/js/components/grammarpage_index.js'])
 <div class="max-w-3xl px-4 pt-6 lg:pt-10 pb-12 sm:px-6 lg:px-8 mx-auto">
     <div class="max-w-2xl">
         <!-- Avatar Media -->
@@ -81,14 +82,22 @@
                 <div id="word-card"
                      class="bg-white rounded-lg p-8 shadow-md max-w-md w-full flex flex-col items-center mx-auto">
                     <p id="word-asked" class="text-2xl font-semibold mb-4"></p>
+                    <p id="times-repeated" class="text-gray-400 my-2">Tekrar sayısı : 0</p>
                     <input id="input-word-answer" name="input-word-answer" type="text"
                            class="border-gray-300 border rounded-md px-4 py-2 mb-4 w-full"
                            placeholder="Karşılığını giriniz.">
                     <p id="false-answer-p" class="text-red-400 my-5 hidden">Yanlış Cevap ! Tekrar Deneyin.</p>
-                    <button id="submitBtn"
-                            class="self-end bg-blue-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300">
-                        Submit
-                    </button>
+                    <div class="flex gap-5 w-full justify-center">
+                        <button type="button" id="word-hint"
+                                class="self-end bg-yellow-500 text-sm text-white font-semibold py-2 px-4 rounded-md hover:bg-yellow-600 transition duration-300">
+                            Bilmiyorum
+                        </button>
+                        <button id="submitBtn"
+                                class="bg-green-500 text-white text-sm font-semibold py-2 px-4 rounded-md hover:bg-green-600 transition duration-300">
+                            Gönder
+                        </button>
+                    </div>
+                    <x-grammerpage.modal class="mt-5" />
                 </div>
             @else
                 {!! $body !!}
@@ -163,7 +172,7 @@
                     <input hidden name="isLast" value="{{$isLast}}">
                     <button
                         id="next_button"
-                        class="cursor-pointer flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800">
+                        class="cursor-pointer flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800  {{$isWord ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}}" {{$isWord ? "disabled" : ""}}>
                         İleri
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
                             <path fill="currentColor" d="m10 17l5-5l-5-5z"/>
@@ -175,11 +184,17 @@
     </div>
 </div>
 
+
 <script>
     let words_json = (document.getElementById('words') ? document.getElementById('words').value : null) || null;
-    let words = JSON.parse(words_json) || null;
+    let words = null;
+    try {
+        words = JSON.parse(words_json);
+    } catch (error) {
+        words = null;
+    }
     let currentIndex = 0
-    let wordKeys = Object.keys(words);
+    let wordKeys = words ? Object.keys(words) : null;
     let askingForKeys = true;
     let random_word = false;
     let word_row = 0;
@@ -196,11 +211,11 @@
     function displayWord() {
         // Get current word and its translation
         let currentWordKey, currentWordValue;
-        if(random_word && currentIndex === 0) {
+        if (random_word && currentIndex === 0) {
             wordKeys = shuffleArray(wordKeys);
         }
         currentWordKey = wordKeys[currentIndex];
-        currentWordValue = words[currentWordKey];
+        currentWordValue = words[currentWordKey]["value"];
 
         // Display current word
         document.getElementById("word-asked").textContent = askingForKeys ? currentWordKey : currentWordValue;
@@ -212,8 +227,17 @@
             document.getElementById("false-answer-p").classList.add("hidden");
         });
 
+        document.getElementById("word-hint").addEventListener("click", function () {
+            document.getElementById("input-word-answer").value = askingForKeys ? currentWordValue : currentWordKey;
+        })
+
+        document.getElementById("word-usage-modal-button").addEventListener("click",function(){
+            document.getElementById("word-usage-modal-text").innerHTML = currentWordValue = words[currentWordKey]["uses"];
+        })
+
         document.getElementById("submitBtn").onclick = function () {
-            const userInput = document.getElementById("input-word-answer").value.trim();
+            const unSanitizedUserInput = document.getElementById("input-word-answer").value.trim();
+            const userInput = unSanitizedUserInput.replace(/[<>&'"]/g, '');
             if ((askingForKeys && userInput === currentWordValue) || (!askingForKeys && userInput === currentWordKey)) {
                 // If user input matches the translation
                 // Change button color and clear input field
@@ -225,8 +249,14 @@
                     // If finished all words, toggle mode
                     askingForKeys = !askingForKeys;
                     word_row++;
-                    if(word_row >= 2) {
+                    if (word_row >= 2) {
                         random_word = true;
+                    }
+                    document.getElementById("times-repeated").textContent = "Tekrar Sayısı : " + word_row;
+
+                    if (word_row >= 4) {
+                        document.getElementById("next_button").classList.remove("opacity-50", "cursor-not-allowed", "pointer-events-none");
+                        document.getElementById("next_button").disabled = false;
                     }
                     currentIndex = 0;
                 } else {
@@ -250,8 +280,9 @@
         };
     }
 
-
-    displayWord();
+    if (words) {
+        displayWord();
+    }
 
     document.getElementById('like_form').addEventListener('submit', function (event) {
         event.preventDefault(); // Prevent form submission
@@ -309,7 +340,6 @@
             })
             .then(data => {
                 // Handle response data as needed
-                // console.log(data);
                 // Redirect to the next topic URL
                 window.location.href = data.redirect_link;
             })
