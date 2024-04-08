@@ -27,7 +27,7 @@
                 <h3 class="mb-2 text-xl font-bold text-gray-800 dark:text-gray-200">
                     Kelimenin Kullanım Örnekleri
                 </h3>
-                <div class="text-gray-500" id="word-usage-modal-text">
+                <div class="text-gray-500 overflow-auto max-h-[250px]" id="word-usage-modal-text">
 
                 </div>
 
