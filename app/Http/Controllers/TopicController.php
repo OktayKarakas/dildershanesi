@@ -38,7 +38,7 @@ class TopicController extends Controller
             $user_courses = $user->courses->where("course_id", $course->id)->first();
             if ($user_courses) {
 
-                return redirect('courses/languages/english');
+                return redirect("courses/languages/$slug");
             }
             User_Course::create([
                 'user_id' => $user->id,
@@ -47,7 +47,7 @@ class TopicController extends Controller
                 'completed_quizes' => "[]",
             ]);
         }
-        return redirect('courses/languages/english');
+        return redirect("courses/languages/$slug");
     }
 
     public function course_reset(Request $request, $slug)
