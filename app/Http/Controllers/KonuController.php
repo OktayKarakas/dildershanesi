@@ -12,8 +12,11 @@ class KonuController extends Controller
 {
     public function show(Request $request, $course_slug, $topic_slug)
     {
+
         $course = Course::where('slug', $course_slug)->firstOrFail();
+
         $topic = Topic::where('slug', $topic_slug)->firstOrFail();
+
         $user = auth()->user();
         $user_courses = null;
 
@@ -40,6 +43,7 @@ class KonuController extends Controller
             ->select('slug', 'isGrammar', 'isWord', 'isQuiz') // Select only the 'slug' column
             ->first();
         $konu_anlatimi = $course->Konu_anlatimlari()->where('topic_id', $topic->id)->firstOrFail();
+
 
 
         return view('grammer_topic', [

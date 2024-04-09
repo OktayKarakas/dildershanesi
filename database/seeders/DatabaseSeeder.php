@@ -27,10 +27,69 @@ class DatabaseSeeder extends Seeder
             'slug' => 'english'
         ]);
 
-        \App\Models\Course::create([
+        \App\Models\Konu_Anlatimi::create([
             'title' => "İngilizce",
-            'excerpt' => "This is excerpt",
-            'slug' => 'english'
+            'body' => "This is excerpt",
+            'sirasi' => 1,
+            'topic_id' => 1,
+            'course_id' =>1
         ]);
+
+        \App\Models\Konu_Anlatimi::create([
+            'title' => "İngilizce2",
+            'body' => "This is excerpt",
+            'sirasi' => 2,
+            'topic_id' => 2,
+            'course_id' =>1
+        ]);
+
+        \App\Models\Konu_Anlatimi::create([
+            'title' => "İngilizce3",
+            'body' => "This is excerpt",
+            'sirasi' => 3,
+            'topic_id' => 3,
+            'course_id' =>1
+        ]);
+
+        \App\Models\Konu_Anlatimi::create([
+            'title' => "İngilizce4",
+            'body' => "This is excerpt",
+            'sirasi' => 4,
+            'topic_id' => 4,
+            'course_id' =>1
+        ]);
+
+        \App\Models\Konu_Anlatimi::create([
+            'title' => "İngilizce5",
+            'body' => "This is excerpt",
+            'sirasi' => 5,
+            'topic_id' => 5,
+            'course_id' =>1
+        ]);
+
+        \App\Models\Konu_Anlatimi::create([
+            'title' => "İngilizce6",
+            'body' => "This is excerpt",
+            'sirasi' => 6,
+            'topic_id' => 6,
+            'course_id' =>1
+        ]);
+
+        \App\Models\Konu_Anlatimi::create([
+            'title' => "İngilizce7",
+            'body' => "This is excerpt",
+            'sirasi' => 7,
+            'topic_id' => 7,
+            'course_id' =>1
+        ]);
+
+        \App\Models\Konu_Anlatimi::create([
+            'title' => "İngilizce8",
+            'body' => "This is excerpt",
+            'sirasi' => 8,
+            'topic_id' => 8,
+            'course_id' =>1
+        ]);
+
     }
 }

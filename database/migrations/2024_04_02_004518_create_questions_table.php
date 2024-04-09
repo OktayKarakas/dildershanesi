@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('quiz_id');
+            $table->json('question');
+            $table->boolean('isTrueFalse');
+            $table->boolean('isMultiChoice');
+            $table->boolean('isClickComplete');
             $table->timestamps();
         });
     }

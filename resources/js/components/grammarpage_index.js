@@ -1,5 +1,83 @@
 let words_json = (document.getElementById('words') ? document.getElementById('words').value : null) || null;
 let words = null;
+let quiz_json = (document.getElementById('quiz') ? document.getElementById('quiz').value : null) || null;
+let quiz_questions = null;
+let quiz_index = 0
+let current_question = null
+let wrong_quiz_answer_number = 0;
+
+function createItemElement(data, index) {
+    const button = document.createElement('button');
+    button.className = 'w-full my-4 flex flex-col text-gray-800 border shadow-sm rounded-xl hover:shadow-md transition dark:bg-slate-900 dark:border-gray-800';
+    button.setAttribute('id', `multichoice_${index}`);
+    button.setAttribute('value', `${data}`);
+    button.setAttribute('href', '#');
+    button.setAttribute('type', 'button');
+
+    const innerHtml = `
+                <div class="p-4 md:p-5">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="ms-3">
+                                <h3 class="font-semibold">${data}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+    button.innerHTML = innerHtml;
+
+    return button;
+}
+
+
+if (quiz_json) {
+    function displayQuiz() {
+        try {
+            quiz_questions = JSON.parse(quiz_json);
+            current_question = JSON.parse(quiz_questions[quiz_index].question)
+        } catch (error) {
+            quiz_questions = null;
+            current_question = null;
+        }
+
+        if (quiz_index === quiz_questions?.length || !quiz_questions) {
+            modal_container.classList.remove('hidden');
+            quiz_modal_wrong_number.textContent = wrong_quiz_answer_number.toString();
+            const next_form = document.getElementById("next_form");
+            document.getElementById("quiz-modal-next-button").addEventListener("click",function(){
+                next_form.dispatchEvent(new Event('submit'));
+            })
+            return;
+        }
+        let quiz_question_keys = current_question ? Object.keys(current_question) : null;
+        document.getElementById('quiz_question').textContent = current_question["title"]
+        const current_question_answer = current_question[current_question["correct_answer"]]
+        let container = document.getElementById("button-container")
+        container.innerHTML = ""
+        for (let i = 0; i < quiz_question_keys.length - 2; i++) {
+            const itemElement = createItemElement(current_question[quiz_question_keys[i]], i)
+            itemElement.addEventListener('click', function () {
+                let value = document.getElementById(`multichoice_${i}`).value
+                if (current_question_answer === value) {
+                    quiz_index++
+                    document.getElementById(`multichoice_${i}`).classList.remove('text-gray-800')
+                    document.getElementById(`multichoice_${i}`).classList.add('bg-green-500','text-white')
+                    displayQuiz()
+                } else {
+                    wrong_quiz_answer_number++;
+                    document.getElementById(`multichoice_${i}`).classList.remove('text-gray-800')
+                    document.getElementById(`multichoice_${i}`).classList.add('bg-red-500','text-white')
+                }
+            });
+            container.appendChild(itemElement)
+        }
+    }
+
+    displayQuiz()
+}
+
+
 try {
     words = JSON.parse(words_json);
 } catch (error) {
@@ -119,7 +197,6 @@ document.getElementById('like_form').addEventListener('submit', function (event)
         .then(data => {
             // Handle response data as needed
             const responseObject = JSON.parse(data);
-            console.log(responseObject);
         })
         .catch(error => {
             // Handle errors
@@ -129,7 +206,6 @@ document.getElementById('like_form').addEventListener('submit', function (event)
 
 document.getElementById('next_form').addEventListener('submit', function (event) {
     event.preventDefault(); // Prevent form submission
-
     // Collect form data
     let formData = new FormData(this);
 
