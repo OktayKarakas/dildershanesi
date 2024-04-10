@@ -12,6 +12,6 @@ class Question extends Model
     protected $table = 'questions';
 
     public function Quizes(){
-        return $this->belongsTo(Quiz::class,"quiz_id");
+        return $this->belongsTo(Quizler::class,"quiz_id");
     }
 }

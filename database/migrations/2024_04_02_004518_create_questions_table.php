@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('quiz_id');
+            $table->foreignId('quiz_id')->constrained('quizler')->onDelete('cascade');
             $table->json('question');
             $table->boolean('isTrueFalse');
             $table->boolean('isMultiChoice');

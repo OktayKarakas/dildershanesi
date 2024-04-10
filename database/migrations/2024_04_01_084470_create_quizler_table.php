@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('quizler', function (Blueprint $table) {
             $table->id();
             $table->boolean('is_end');
-            $table->foreignId('konu_anlatimi_id');
-            $table->foreignId('topic_id');
+            $table->foreignId('konu_anlatimi_id')->constrained('konu_anlatimi')->onDelete('cascade');
+            $table->foreignId('topic_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

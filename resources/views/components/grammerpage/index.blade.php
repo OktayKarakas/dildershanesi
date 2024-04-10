@@ -8,7 +8,6 @@
     if ($isQuiz) {
         try {
             $quiz = $konu->quizes()->where('topic_id', $topic->id)->firstOrFail();
-
             $quizData = $quiz->Questions;
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             // Handle the exception here

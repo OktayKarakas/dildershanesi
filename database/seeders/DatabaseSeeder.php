@@ -19,13 +19,15 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        \App\Models\Topic::factory(8)->create();
+
 
         \App\Models\Course::create([
             'title' => "İngilizce",
             'excerpt' => "This is excerpt",
             'slug' => 'english'
         ]);
+
+        \App\Models\Topic::factory(8)->create();
 
         \App\Models\Konu_Anlatimi::create([
             'title' => "İngilizce",
@@ -34,7 +36,7 @@ class DatabaseSeeder extends Seeder
             'topic_id' => 1,
             'course_id' =>1
         ]);
-
+//
         \App\Models\Konu_Anlatimi::create([
             'title' => "İngilizce2",
             'body' => "This is excerpt",

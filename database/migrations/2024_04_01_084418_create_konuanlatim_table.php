@@ -16,8 +16,8 @@ return new class extends Migration
             $table->text('title');
             $table->text('body');
             $table->integer('sirasi');
-            $table->foreignId('topic_id');
-            $table->foreignId('course_id');
+            $table->foreignId('topic_id')->constrained()->onDelete('cascade');
+            $table->foreignId('course_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
