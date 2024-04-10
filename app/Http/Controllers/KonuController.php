@@ -32,15 +32,19 @@ class KonuController extends Controller
             ]);
         }
         $current_topic_row_number = Topic::where('course_id', $course->id)
-            ->where('id', '<=', $topic->id)
-            ->count();
+            ->where('id', $topic->id)
+            ->value('id');
+
         $next_topic = Topic::where('course_id', $course->id)
-            ->skip($current_topic_row_number)
+            ->where('id', '>', $current_topic_row_number)
+            ->orderBy('id', 'asc')
             ->select('slug', 'isGrammar', 'isWord', 'isQuiz')
             ->first();
+
         $previous_topic = Topic::where('course_id', $course->id)
-            ->skip($current_topic_row_number - 2) // Skip to the previous row
-            ->select('slug', 'isGrammar', 'isWord', 'isQuiz') // Select only the 'slug' column
+            ->where('id', '<', $current_topic_row_number)
+            ->orderBy('id', 'desc')
+            ->select('slug', 'isGrammar', 'isWord', 'isQuiz')
             ->first();
         $konu_anlatimi = $course->Konu_anlatimlari()->where('topic_id', $topic->id)->firstOrFail();
 

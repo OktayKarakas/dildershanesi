@@ -37,6 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin', [AdminController::class, 'show']);
     Route::post('/admin/create/course', [AdminController::class, 'create_course']);
     Route::post('/admin/create/topic', [AdminController::class, 'create_topic']);
+    Route::post('/admin/create/konu_anlatimi', [AdminController::class, 'create_konu_anlatimi']);
+    Route::post('/admin/create/quiz', [AdminController::class, 'create_quiz']);
 });
 
 Route::post('/courses/languages/{slug}', [TopicController::class, 'course_register'])->middleware('set.session');
