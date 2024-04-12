@@ -1,4 +1,4 @@
-@props(["konu","topic","title","body","sirasi","next_topic_slug","previous_topic_slug","previous_topic_general","isLast","topic_general"])
+@props(["konu","course","topic","title","body","sirasi","next_topic_slug","previous_topic_slug","previous_topic_general","isLast","topic_general"])
 @php
     $isFirst = $sirasi <= 1;
     $course_name = request()->route('course_slug');
@@ -154,6 +154,10 @@
             <div class="hs-tooltip inline-block">
                 <form id="like_form" method="POST">
                     @csrf
+                    <input type="hidden" id="csrf_token_like_form" name="csrf_token_like_form" value="{{ csrf_token() }}">
+                    <input name="course_id" id="course_id_like_form" hidden value="{{$course->id}}" />
+                    <input name="topic_id" id="topic_id_like_form" hidden value="{{$topic->id}}" />
+                    <input name="konu_anlatimi_id" id="konu_anlatimi_id_like_form" hidden value="{{$konu->id}}" />
                     <button type="submit"
                             class="hs-tooltip-toggle flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800">
                         <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"

@@ -132,6 +132,42 @@
             <button class="p-2 bg-blue-500">Quiz Oluştur</button>
         </form>
     </div>
+    <div class="mx-4 my-4">
+        <h2 class="text-lg font-bold">Soru Oluştur</h2>
+        <form id="quiz_question_create_form" method="post">
+            @csrf
+            <div class="my-2">
+
+                <label for="quiz_quesstion_quiz_id">Ait Olduğu Quiz</label>
+                <select name="quiz_id" id="quiz_id">
+                    @foreach($quizler as $quiz)
+                        <option value="{{$quiz->id}}">{{$quiz->id}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="my-5">
+                <p>Question Yapısı</p>
+                <textarea class="resize-horizontal resize-vertical w-full h-32 border rounded-md p-2"
+                          name="question_body" id="question_body"
+                          placeholder="Question Giriniz..">
+{
+  "key1": "value",
+   "key2": "value2",
+  "correct_answer": "key1",
+  "title": "test"
+}
+</textarea>
+            </div>
+            <div class="my-2">
+                <select name="quiz_question_type" id="quiz_question_type">
+                    <option value="multipleChoice">Multiple Choice</option>
+                    <option value="trueFalse">True False</option>
+                    <option value="clickComplete">Click Complete</option>
+                </select>
+            </div>
+            <button class="p-2 bg-blue-500">Question Oluştur</button>
+        </form>
+    </div>
 </x-general.layout>
 
 <script>
@@ -245,6 +281,35 @@
                 quiz_topic_id: document.getElementById("quiz_topic_id").value,
                 quiz_konu_anlatimi_id: document.getElementById("quiz_konu_anlatimi_id").value,
                 quiz_isEnd_checkbox: document.getElementById("quiz_isEnd_checkbox").checked
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+
+    document.getElementById("quiz_question_create_form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        fetch('/admin/create/quiz_question', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({
+                quiz_id: document.getElementById("quiz_id").value,
+                question_body: document.getElementById("question_body").value,
+                quiz_question_type: document.getElementById("quiz_question_type").value
             })
         })
             .then(response => {

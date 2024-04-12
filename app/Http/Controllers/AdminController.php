@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\Question;
 use App\Models\Quizler;
 use App\Models\Topic;
 use App\Models\Konu_Anlatimi;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use mysql_xdevapi\Exception;
 
 class AdminController extends Controller
 {
@@ -17,10 +19,12 @@ class AdminController extends Controller
         $courses = Course::all();
         $topics = Topic::all();
         $konu_anlatimlari = Konu_Anlatimi::all();
+        $quizes = Quizler::all();
         return view('admin_page', [
             "courses" => $courses,
             "topics" => $topics,
-            "konu_anlatimlari" => $konu_anlatimlari
+            "konu_anlatimlari" => $konu_anlatimlari,
+            "quizler" =>$quizes
         ]);
     }
 
@@ -127,6 +131,56 @@ class AdminController extends Controller
         $quiz->save();
 
         // Return a response indicating success
-        return response()->json(['success' => 'Quiz created successfully'], 200);
+        return new JsonResponse(['success' => 'Quiz created.'], 200);
     }
+
+    public function create_question(Request $request)
+    {
+        try {
+            // Validate the incoming request data
+            $validatedData = $request->validate([
+                'quiz_id' => 'required|integer',
+                'question_body' => 'required|string', // Adjust validation rules as needed
+                'quiz_question_type' => 'required|string|in:multipleChoice,trueFalse,clickComplete',
+            ]);
+
+            // Create a new question instance
+            $question = new Question();
+
+            // Assign values to the question instance
+            $question->quiz_id = $validatedData['quiz_id'];
+            $question->question = $validatedData['question_body'];
+
+            // Determine the question type based on the quiz_question_type field
+            switch ($validatedData['quiz_question_type']) {
+                case 'multipleChoice':
+                    $question->isMultiChoice = true;
+                    $question->isTrueFalse = false;
+                    $question->isClickComplete = false;
+                    break;
+                case 'trueFalse':
+                    $question->isMultiChoice = false;
+                    $question->isTrueFalse = true;
+                    $question->isClickComplete = false;
+                    break;
+                case 'clickComplete':
+                    $question->isMultiChoice = false;
+                    $question->isTrueFalse = false;
+                    $question->isClickComplete = true;
+                    break;
+            }
+
+            // Save the question to the database
+            $question->save();
+
+            // Return a response indicating success
+            return response()->json(['success' => 'Question created successfully'], 200);
+        } catch (\Exception $e) {
+            // Handle any exceptions that occur during the process
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+
+
 }

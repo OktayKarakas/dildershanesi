@@ -6,6 +6,7 @@ use App\Http\Controllers\TopicController;
 use App\Http\Controllers\AdminController;
 use \App\Http\Controllers\UserCoursesController;
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 
 /*
@@ -38,7 +39,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/create/course', [AdminController::class, 'create_course']);
     Route::post('/admin/create/topic', [AdminController::class, 'create_topic']);
     Route::post('/admin/create/konu_anlatimi', [AdminController::class, 'create_konu_anlatimi']);
+    Route::post('/admin/create/quiz_question', [AdminController::class, 'create_question']);
     Route::post('/admin/create/quiz', [AdminController::class, 'create_quiz']);
+    Route::post('/user/create/bookmark',[UserController::class,'add_bookmark']);
 });
 
 Route::post('/courses/languages/{slug}', [TopicController::class, 'course_register'])->middleware('set.session');

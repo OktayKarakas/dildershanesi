@@ -178,15 +178,24 @@ document.getElementById('like_form').addEventListener('submit', function (event)
     event.preventDefault(); // Prevent form submission
 
     // Collect form data
-    let formData = new FormData(this);
+    let course_id = document.getElementById("course_id_like_form").value
+    let topic_id = document.getElementById("topic_id_like_form").value
+    let konu_anlatimi_id = document.getElementById("konu_anlatimi_id_like_form").value
+    let csrfToken = document.getElementById("csrf_token_like_form").value
+    console.log(csrfToken)
 
     // Send AJAX request
-    fetch(this.action, {
+    fetch("/user/create/bookmark", {
         method: 'POST',
-        body: formData,
+        body: JSON.stringify({
+            course_id,
+            topic_id,
+            konu_anlatimi_id
+        }),
         headers: {
-            'X-CSRF-TOKEN': "{{ csrf_token() }}"
-        }
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        },
     })
         .then(response => {
             if (!response.ok) {
@@ -196,7 +205,7 @@ document.getElementById('like_form').addEventListener('submit', function (event)
         })
         .then(data => {
             // Handle response data as needed
-            const responseObject = JSON.parse(data);
+            console.log(data);
         })
         .catch(error => {
             // Handle errors
