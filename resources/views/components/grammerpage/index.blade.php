@@ -1,4 +1,4 @@
-@props(["konu","course","topic","title","body","sirasi","next_topic_slug","previous_topic_slug","previous_topic_general","isLast","topic_general"])
+@props(["konu","user_bookmark","course","topic","title","body","sirasi","next_topic_slug","previous_topic_slug","previous_topic_general","isLast","topic_general"])
 @php
     $isFirst = $sirasi <= 1;
     $course_name = request()->route('course_slug');
@@ -118,7 +118,8 @@
                     <input hidden id="quiz" name="quiz" value="{{$quizData}}">
                     <p id="quiz_question" class="text-center"></p>
                     <div id="button-container"></div>
-                    <x-grammerpage.quiz_modal :topic="$topic" :course_name="$course_name" :topic_general="$topic_general" />
+                    <x-grammerpage.quiz_modal :topic="$topic" :course_name="$course_name"
+                                              :topic_general="$topic_general"/>
                 </form>
             @else
                 {!! $body !!}
@@ -154,17 +155,23 @@
             <div class="hs-tooltip inline-block">
                 <form id="like_form" method="POST">
                     @csrf
-                    <input type="hidden" id="csrf_token_like_form" name="csrf_token_like_form" value="{{ csrf_token() }}">
-                    <input name="course_id" id="course_id_like_form" hidden value="{{$course->id}}" />
-                    <input name="topic_id" id="topic_id_like_form" hidden value="{{$topic->id}}" />
-                    <input name="konu_anlatimi_id" id="konu_anlatimi_id_like_form" hidden value="{{$konu->id}}" />
+                    <input type="hidden" id="csrf_token_like_form" name="csrf_token_like_form"
+                           value="{{ csrf_token() }}">
+                    <input name="course_id" id="course_id_like_form" hidden value="{{$course->id}}"/>
+                    <input name="topic_id" id="topic_id_like_form" hidden value="{{$topic->id}}"/>
+                    <input name="konu_anlatimi_id" id="konu_anlatimi_id_like_form" hidden value="{{$konu->id}}"/>
                     <button type="submit"
                             class="hs-tooltip-toggle flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800">
-                        <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
-                             height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        <svg class="{{$user_bookmark ? 'hidden ' : ''}}flex-shrink-0 size-4"
+                             xmlns="http://www.w3.org/2000/svg" width="16"
+                             height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                              stroke-linecap="round" stroke-linejoin="round">
                             <path
                                 d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                        </svg>
+                        <svg class="{{$user_bookmark ? '' : 'hidden'}}flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                  d="m12 21l-1.45-1.3q-2.525-2.275-4.175-3.925T3.75 12.812T2.388 10.4T2 8.15Q2 5.8 3.575 4.225T7.5 2.65q1.3 0 2.475.55T12 4.75q.85-1 2.025-1.55t2.475-.55q2.35 0 3.925 1.575T22 8.15q0 1.15-.387 2.25t-1.363 2.412t-2.625 2.963T13.45 19.7z"/>
                         </svg>
 
                     </button>

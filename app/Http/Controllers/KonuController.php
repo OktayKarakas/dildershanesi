@@ -47,6 +47,9 @@ class KonuController extends Controller
             ->select('slug', 'isGrammar', 'isWord', 'isQuiz')
             ->first();
         $konu_anlatimi = $course->Konu_anlatimlari()->where('topic_id', $topic->id)->firstOrFail();
+        if($user){
+            $user_bookmark = $user->bookmarks->where("course_id",$course->id)->where("topic_id",$topic->id)->where("konu_anlatimi_id",$konu_anlatimi->id)->first();
+        }
 
 
 
@@ -60,6 +63,7 @@ class KonuController extends Controller
             "previous_topic_general" => isset($previous_topic) ? ($previous_topic->isGrammar ? 'grammar' : ($previous_topic->isWord ? 'word' : 'quiz')) : null,
             "next_topic_general" => isset($next_topic) ? ($next_topic->isGrammar ? 'grammar' : ($next_topic->isWord ? 'word' : 'quiz')) : null,
             "isLast" => !isset($next_topic),
+            "user_bookmark" => $user_bookmark ?? null
         ]);
     }
 

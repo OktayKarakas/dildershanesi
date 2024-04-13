@@ -10,5 +10,6 @@
                          :previous_topic_slug="$previous_topic_slug"
                          :previous_topic_general="$previous_topic_general"
                          :isLast="$isLast"
+                         :user_bookmark="$user_bookmark"
     />
 </x-general.layout>
