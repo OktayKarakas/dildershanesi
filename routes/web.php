@@ -34,19 +34,23 @@ Route::middleware('auth')->group(function () {
     Route::get('/languages/{course_slug}/word/{topic_slug}', [KonuController::class, 'show']);
     Route::get('/languages/{course_slug}/quiz/{topic_slug}', [KonuController::class, 'show']);
     Route::patch('/languages/{course_slug}/quiz/{topic_slug}', [KonuController::class, 'update']);
-    Route::get('/profile/courses',[UserCoursesController::class,'show']);
+    Route::get('/profile/courses', [UserCoursesController::class, 'show']);
+    Route::post('/user/create/bookmark', [UserController::class, 'add_bookmark']);
+    Route::get('/user/bookmarks', [UserController::class, 'show_bookmarks']);
+});
+
+Route::middleware('admin.auth')->group(function () {
     Route::get('/admin', [AdminController::class, 'show']);
     Route::post('/admin/create/course', [AdminController::class, 'create_course']);
     Route::post('/admin/create/topic', [AdminController::class, 'create_topic']);
     Route::post('/admin/create/konu_anlatimi', [AdminController::class, 'create_konu_anlatimi']);
     Route::post('/admin/create/quiz_question', [AdminController::class, 'create_question']);
     Route::post('/admin/create/quiz', [AdminController::class, 'create_quiz']);
-    Route::post('/user/create/bookmark',[UserController::class,'add_bookmark']);
 });
 
 Route::post('/courses/languages/{slug}', [TopicController::class, 'course_register'])->middleware('set.session');
-Route::get('/courses/languages/{slug}',[TopicController::class,'show']);
-Route::patch('/courses/languages/{slug}',[TopicController::class,'course_reset'])->middleware('auth');
+Route::get('/courses/languages/{slug}', [TopicController::class, 'show']);
+Route::patch('/courses/languages/{slug}', [TopicController::class, 'course_reset'])->middleware('auth');
 
 
 require __DIR__ . '/auth.php';

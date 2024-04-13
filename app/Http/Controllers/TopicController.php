@@ -18,10 +18,13 @@ class TopicController extends Controller
             $user_course = $user->courses->where("course_id", $course->id)->first();
         }
 
-        $topics = $course->topics;
+        $topics = $course->topics()->paginate(5);
+        $topic_count = $course->topics()->count();
 
         return view('course_page', [
             'topics' => $topics,
+            'course' => $course,
+            'topic_count' => $topic_count,
             'user_course' => $user_course,
         ]);
     }

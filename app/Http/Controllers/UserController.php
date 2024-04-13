@@ -9,8 +9,18 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function add_bookmark(Request $request){
 
+    public function show_bookmarks(Request $request)
+    {
+        $user_bookmarks = $request->user()->bookmarks;
+
+        return view('user_bookmarks', [
+            'bookmarks' => $user_bookmarks
+        ]);
+    }
+
+    public function add_bookmark(Request $request)
+    {
 
 
         $validatedData = $request->validate([
@@ -19,20 +29,21 @@ class UserController extends Controller
             'konu_anlatimi_id' => 'required|integer'
         ]);
 
-        if($request->user()) {
-            $user_bookmark = $request->user()->bookmarks->where("course_id",$validatedData['course_id'])->where("topic_id",$validatedData['topic_id'])->where("konu_anlatimi_id",$validatedData['konu_anlatimi_id'])->first();
-            $user_bookmark->delete();
-            return new JsonResponse(['success' => 'bookmark removed'], 200);
+        if ($request->user()) {
+            $user_bookmark = $request->user()->bookmarks->where("course_id", $validatedData['course_id'])->where("topic_id", $validatedData['topic_id'])->where("konu_anlatimi_id", $validatedData['konu_anlatimi_id'])->first();
+            if ($user_bookmark) {
+                $user_bookmark->delete();
+                return new JsonResponse(['success' => 'bookmark removed'], 200);
+            }
         }
 
 
         $bookmark = new Bookmark();
 
 
-
-        $bookmark->course_id =$validatedData['course_id'];
-        $bookmark->topic_id =$validatedData['topic_id'];
-        $bookmark->konu_anlatimi_id =$validatedData['konu_anlatimi_id'];
+        $bookmark->course_id = $validatedData['course_id'];
+        $bookmark->topic_id = $validatedData['topic_id'];
+        $bookmark->konu_anlatimi_id = $validatedData['konu_anlatimi_id'];
         $bookmark->user_id = $request->user()->id;
         $bookmark->save();
         return new JsonResponse(['success' => 'bookmark created.'], 200);

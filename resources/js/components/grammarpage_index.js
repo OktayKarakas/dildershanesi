@@ -182,7 +182,6 @@ document.getElementById('like_form').addEventListener('submit', function (event)
     let topic_id = document.getElementById("topic_id_like_form").value
     let konu_anlatimi_id = document.getElementById("konu_anlatimi_id_like_form").value
     let csrfToken = document.getElementById("csrf_token_like_form").value
-    console.log(csrfToken)
 
     // Send AJAX request
     fetch("/user/create/bookmark", {
@@ -205,7 +204,7 @@ document.getElementById('like_form').addEventListener('submit', function (event)
         })
         .then(data => {
             // Handle response data as needed
-            console.log(data);
+            window.location.reload()
         })
         .catch(error => {
             // Handle errors

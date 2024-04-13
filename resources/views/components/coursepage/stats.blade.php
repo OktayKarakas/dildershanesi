@@ -1,19 +1,17 @@
-@props(['topics', 'user_course'])
+@props(['user_course','topics','topic_count','course'])
 <!-- Features -->
 @php
-    $topicCount = count($topics) + 1;
-    $stat = $user_course ? $user_course->topic_id : 0;
-    $is_course_completed = $user_course->isCompleted ?? false;
+    $topicIds = $course->topics()->pluck('id')->toArray(); // Fetch all topic IDs associated with the current course
 
-    if (!$is_course_completed) {
-        // Ensure $topicCount is greater than 0 and $stat is not 1 to avoid division by zero or incorrect calculation
-        if ($topicCount > 0 && $stat !== 1) {
-            $percentage = ($stat / $topicCount) * 100;
-        } else {
-            $percentage = 0; // Set percentage to 0 if $topicCount is zero or if $stat is 1 to avoid division by zero or incorrect calculation
-        }
+    $topicCount = count($topicIds);
+
+    $stat = $user_course ? array_search($user_course->topic_id, $topicIds) : 0; // Find the index of the user's current topic ID within $topicIds, or set to 0 if not found
+    $is_course_completed = $user_course ? $user_course->isCompleted : false;
+
+    if (!$is_course_completed && $topicCount > 0) {
+        $percentage = ($stat / ($topicCount)) * 100; // Calculate percentage based on the index and count of topics (-1 to account for 0-based index)
     } else {
-        $percentage = 100; // Set percentage to 100% if the course is completed
+        $percentage = $is_course_completed ? 100 : 0; // Set percentage to 100% if the course is completed, otherwise set it to 0
     }
 @endphp
 <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-10">

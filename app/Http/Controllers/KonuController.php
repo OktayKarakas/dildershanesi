@@ -46,6 +46,7 @@ class KonuController extends Controller
             ->orderBy('id', 'desc')
             ->select('slug', 'isGrammar', 'isWord', 'isQuiz')
             ->first();
+
         $konu_anlatimi = $course->Konu_anlatimlari()->where('topic_id', $topic->id)->firstOrFail();
         if($user){
             $user_bookmark = $user->bookmarks->where("course_id",$course->id)->where("topic_id",$topic->id)->where("konu_anlatimi_id",$konu_anlatimi->id)->first();
