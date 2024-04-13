@@ -35,6 +35,7 @@
                 <label for="topic_title">Topic Başlığı</label>
                 <input name="topic_title" id="topic_title" placeholder="Topic Başlığını Giriniz.."/>
             </div>
+            <x-general.sound_player :audio_link="'audio/english/voice.wav'" />
             <div class="my-2">
                 <label for="topic_excerpt">Topic Açıklaması</label>
                 <input name="topic_excerpt" id="topic_excerpt" placeholder="Topic Açıklamasını Giriniz.."/>
