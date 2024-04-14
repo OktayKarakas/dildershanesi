@@ -35,7 +35,6 @@
                 <label for="topic_title">Topic Başlığı</label>
                 <input name="topic_title" id="topic_title" placeholder="Topic Başlığını Giriniz.."/>
             </div>
-            <x-general.sound_player :audio_link="'audio/english/voice.wav'" />
             <div class="my-2">
                 <label for="topic_excerpt">Topic Açıklaması</label>
                 <input name="topic_excerpt" id="topic_excerpt" placeholder="Topic Açıklamasını Giriniz.."/>
@@ -88,15 +87,18 @@
                           placeholder="Topic Açıklamasını Giriniz..">{
   "key1": {
     "value": "value1",
-    "uses": "test"
+    "uses": "test",
+    "sound":"audio/english/voice.wav"
   },
   "key2": {
     "value": "value2",
-    "uses": "example"
+    "uses": "example",
+    "sound":"audio/english/voice2.wav"
   },
   "key3": {
     "value": "value3",
-    "uses": "sample"
+    "uses": "sample",
+     "sound":"audio/english/voice3.wav"
   }
 }</textarea>
             </div>

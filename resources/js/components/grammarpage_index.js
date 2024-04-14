@@ -88,6 +88,7 @@ let wordKeys = words ? Object.keys(words) : null;
 let askingForKeys = true;
 let random_word = false;
 let word_row = 0;
+let sound_player = document.getElementById('word_sound_player')
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -100,12 +101,22 @@ function shuffleArray(array) {
 // Display current word and wait for user input
 function displayWord() {
     // Get current word and its translation
-    let currentWordKey, currentWordValue;
+    let currentWordKey, currentWordValue,currentWordSound;
     if (random_word && currentIndex === 0) {
         wordKeys = shuffleArray(wordKeys);
     }
     currentWordKey = wordKeys[currentIndex];
     currentWordValue = words[currentWordKey]["value"];
+    currentWordSound = words[currentWordKey]["sound"];
+
+    if(!askingForKeys) {
+        sound_player.classList.add('hidden')
+    }else {
+        sound_player.classList.remove('hidden')
+    }
+
+    setAudio(currentWordSound);
+
 
     // Display current word
     document.getElementById("word-asked").textContent = askingForKeys ? currentWordKey : currentWordValue;

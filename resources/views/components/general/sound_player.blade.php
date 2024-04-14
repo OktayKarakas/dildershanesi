@@ -1,5 +1,4 @@
-@props(['audio_link'])
-<div class="flex items-center">
+<div class="flex items-center" id="word_sound_player">
     <div class="relative rounded-full overflow-hidden bg-gray-200 w-12 h-12 mr-4">
         <button id="playButton" class="absolute inset-0 flex items-center justify-center w-full h-full text-gray-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50">
             <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" viewBox="0 0 20 20" fill="currentColor">
@@ -13,13 +12,18 @@
     <p class="text-gray-600">Listen to the audio</p>
 </div>
 
-
 <script>
     const audio = document.createElement('audio');
-    audio.src = "{{ asset($audio_link) }}";
     const playButton = document.getElementById('playButton');
     const playIcon = document.getElementById('playIcon');
     const pauseIcon = document.getElementById('pauseIcon');
+
+    function setAudio(currentWordSound){
+        let baseUrl = "{{ url('/') }}"; // Laravel's base URL
+        let audioUrl = baseUrl + '/' + currentWordSound; // Construct the full URL
+        audio.src = audioUrl;
+    }
+
 
     playButton.addEventListener('click', () => {
         if (audio.paused) {

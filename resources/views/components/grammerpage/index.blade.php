@@ -95,6 +95,7 @@
                 <div id="word-card"
                      class="bg-white rounded-lg p-8 shadow-md max-w-md w-full flex flex-col items-center mx-auto">
                     <p id="word-asked" class="text-2xl font-semibold mb-4"></p>
+                    <x-general.sound_player />
                     <p id="times-repeated" class="text-gray-400 my-2">Tekrar sayısı : 0</p>
                     <input id="input-word-answer" name="input-word-answer" type="text"
                            class="border-gray-300 border rounded-md px-4 py-2 mb-4 w-full"
