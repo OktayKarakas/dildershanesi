@@ -1,4 +1,4 @@
-@props(['user_course'])
+@props(['user_course','course'])
 
 @php
     $devam_et_link = '/';
@@ -16,15 +16,13 @@
         <!-- Title -->
         <div class="mt-5 max-w-xl text-center mx-auto">
             <h1 class="block font-bold text-gray-800 text-4xl md:text-5xl lg:text-6xl">
-                İngilizce
+                {!! $course->title !!}
             </h1>
         </div>
         <!-- End Title -->
 
         <div class="mt-5 max-w-3xl text-center mx-auto">
-            <p class="text-lg text-gray-600">İngilizce grammer ve kelimelerini sıfırdan zirveye kadar öğren.Özellikle
-                <strong>YDT</strong> ve
-                <strong>YÖKDİL</strong> sınavlarına uygun hazırlanmış müfredatla ingilizcenin hakimi ol.</p>
+            {!! $course->excerpt !!}
         </div>
 
         <!-- Buttons -->

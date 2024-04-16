@@ -2,15 +2,15 @@
     <!-- Grid -->
     <div class="text-center">
       <div>
-        <a class="flex-none text-xl font-semibold text-black" href="#" aria-label="Brand">Brand</a>
+        <a class="flex-none text-xl font-semibold text-black" href="#" aria-label="Dil Dershanesi">Dil Dershanesi</a>
       </div>
       <!-- End Col -->
-  
+
       <div class="mt-3">
         <p class="text-gray-500">We're part of the <a class="font-semibold text-blue-600 hover:text-blue-700" href="#">Htmlstream</a> family.</p>
         <p class="text-gray-500">© Preline. 2022 Htmlstream. All rights reserved.</p>
       </div>
-  
+
       <!-- Social Brands -->
       <div class="mt-3 space-x-2">
         <a class="inline-flex justify-center items-center size-10 text-center text-gray-500 hover:bg-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white transition" href="#">
