@@ -59,7 +59,7 @@
               <!-- End Solid Check -->
 
               <span class="text-sm sm:text-base text-gray-500">
-                Çok Değil Akıllıca test
+                Çok Değil Akıllıca çalış
               </span>
             </li>
 
