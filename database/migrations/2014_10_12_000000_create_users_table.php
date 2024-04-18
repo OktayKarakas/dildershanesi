@@ -18,6 +18,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('is_admin');
+            $table->boolean('is_pro_member')->default(false);
+            $table->timestamp('pro_member_end_date')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
