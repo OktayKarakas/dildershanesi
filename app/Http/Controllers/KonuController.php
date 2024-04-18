@@ -7,51 +7,63 @@ use App\Models\Topic;
 use App\Models\User_Course;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Cache;
 
 class KonuController extends Controller
 {
     public function show(Request $request, $course_slug, $topic_slug)
     {
 
-        $course = Course::where('slug', $course_slug)->firstOrFail();
+        $course = Cache::remember('course_' . $course_slug, now()->addMinute(), function () use ($course_slug) {
+            return Course::where('slug', $course_slug)->firstOrFail();
+        });
 
-        $topic = Topic::where('slug', $topic_slug)->firstOrFail();
+        $topic = Cache::remember('topic_' . $topic_slug, now()->addMinute(), function () use ($topic_slug) {
+            return Topic::where('slug', $topic_slug)->firstOrFail();
+        });
 
         $user = auth()->user();
-        $user_courses = null;
+        $user_course = null;
 
         if ($user) {
-            $user_courses = $user->courses->where("course_id", $course->id)->first();
+            $user_course = $user->courses->where("course_id", $course->id)->first();
         }
-        if (!isset($user_courses)) {
-            $user_courses = User_Course::create([
+        if (!isset($user_course)) {
+            $user_course = User_Course::create([
                 'user_id' => $user->id,
                 'topic_id' => "1",
                 'course_id' => $course->id,
                 'completed_quizes' => "[]",
             ]);
         }
-        $current_topic_row_number = Topic::where('course_id', $course->id)
-            ->where('id', $topic->id)
-            ->value('id');
+        $current_topic_row_number = Cache::remember('current_topic_row_number_' . $course->slug . '_' . $topic->slug, now()->addMinute(), function () use ($course, $topic) {
+            return Topic::where('course_id', $course->id)
+                ->where('id', $topic->id)
+                ->value('id');
+        });
 
-        $next_topic = Topic::where('course_id', $course->id)
-            ->where('id', '>', $current_topic_row_number)
-            ->orderBy('id', 'asc')
-            ->select('slug', 'isGrammar', 'isWord', 'isQuiz')
-            ->first();
+        $next_topic = Cache::remember('next_topic_' . $course->slug . '_' . $current_topic_row_number, now()->addMinute(), function () use ($course, $current_topic_row_number) {
+            return Topic::where('course_id', $course->id)
+                ->where('id', '>', $current_topic_row_number)
+                ->orderBy('id', 'asc')
+                ->select('slug', 'isGrammar', 'isWord', 'isQuiz')
+                ->first();
+        });
 
-        $previous_topic = Topic::where('course_id', $course->id)
-            ->where('id', '<', $current_topic_row_number)
-            ->orderBy('id', 'desc')
-            ->select('slug', 'isGrammar', 'isWord', 'isQuiz')
-            ->first();
+        $previous_topic = Cache::remember('previous_topic_' . $course->slug . '_' . $current_topic_row_number, now()->addMinute(), function () use ($course, $current_topic_row_number) {
+            return Topic::where('course_id', $course->id)
+                ->where('id', '<', $current_topic_row_number)
+                ->orderBy('id', 'desc')
+                ->select('slug', 'isGrammar', 'isWord', 'isQuiz')
+                ->first();
+        });
 
-        $konu_anlatimi = $course->Konu_anlatimlari()->where('topic_id', $topic->id)->firstOrFail();
-        if($user){
-            $user_bookmark = $user->bookmarks->where("course_id",$course->id)->where("topic_id",$topic->id)->where("konu_anlatimi_id",$konu_anlatimi->id)->first();
+        $konu_anlatimi = Cache::remember('konu_anlatimi_' . $course->slug . '_' . $topic->slug, now()->addMinute(), function () use ($course, $topic) {
+            return $course->Konu_anlatimlari()->where('topic_id', $topic->id)->firstOrFail();
+        });
+        if ($user) {
+            $user_bookmark = $user->bookmarks->where("course_id", $course->id)->where("topic_id", $topic->id)->where("konu_anlatimi_id", $konu_anlatimi->id)->first();
         }
-
 
 
         return view('grammer_topic', [

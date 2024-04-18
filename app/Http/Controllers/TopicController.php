@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Cache;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Models\User_Course;
@@ -10,7 +10,9 @@ class TopicController extends Controller
 {
     public function show(Request $request, $slug)
     {
-        $course = Course::where('slug', $slug)->firstOrFail();
+        $course = Cache::remember('course_' . $slug, now()->addMinute(), function () use ($slug) {
+            return Course::where('slug', $slug)->firstOrFail();
+        });
         $user = auth()->user();
         $user_course = null;
 
@@ -19,7 +21,10 @@ class TopicController extends Controller
         }
 
         $topics = $course->topics()->paginate(5);
-        $topic_count = $course->topics()->count();
+
+        $topic_count = Cache::remember('course_topic_count_' . $course->slug, now()->addMinute(), function () use ($course) {
+            return $course->topics()->count();
+        });
 
         return view('course_page', [
             'topics' => $topics,
