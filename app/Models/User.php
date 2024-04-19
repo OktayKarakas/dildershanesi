@@ -21,7 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'is_admin'
+        'is_pro_member',
+        'pro_member_end_date'
     ];
 
     /**
