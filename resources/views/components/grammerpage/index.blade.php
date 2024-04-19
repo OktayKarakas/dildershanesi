@@ -118,6 +118,7 @@
                 <form id="quiz-form" x-data x-on:submit.prevent>
                     <input hidden id="quiz" name="quiz" value="{{$quizData}}">
                     <p id="quiz_question" class="text-center"></p>
+                    <p id="quiz_question_explanation" class="text-center text-gray-400 hidden"></p>
                     <div id="button-container"></div>
                     <x-grammerpage.quiz_modal :topic="$topic" :course_name="$course_name"
                                               :topic_general="$topic_general"/>
