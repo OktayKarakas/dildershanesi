@@ -142,7 +142,7 @@
             <!-- Button -->
             <div class="relative inline-flex">
 
-                <a href="{{$isFirst ? "/courses/languages/$course_name" : "/languages/english/$previous_topic_general/$previous_topic_slug"}}"
+                <a href="{{$isFirst ? "/courses/languages/$course_name" : "/languages/$course->slug/$previous_topic_general/$previous_topic_slug"}}"
                    id="blog-article-share-dropdown"
                    class="cursor-pointer flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">

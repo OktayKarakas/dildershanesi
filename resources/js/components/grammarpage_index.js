@@ -59,7 +59,7 @@ if (quiz_json) {
         document.getElementById('quiz_question').addEventListener('click',function() {
             document.getElementById('quiz_question_explanation').classList.toggle('hidden');
         })
-        for (let i = 0; i < quiz_question_keys.length - 2; i++) {
+        for (let i = 0; i < quiz_question_keys.length - 3; i++) {
             const itemElement = createItemElement(current_question[quiz_question_keys[i]], i)
             itemElement.addEventListener('click', function () {
                 let value = document.getElementById(`multichoice_${i}`).value

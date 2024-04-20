@@ -4,7 +4,7 @@
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 items-center gap-6 md:gap-10">
         @php
             $topicCount = $topic_count;
-            $userTopicId = $user_course ? $user_course->topic_id : 1;
+            $userTopicId = $user_course ? $user_course->topic_id : $course->topics()->first()->id;
             $maxTopicId = $course->topics()->max('id');
             $userTopicId = max(1, min($userTopicId, $maxTopicId));
         @endphp

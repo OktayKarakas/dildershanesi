@@ -40,6 +40,7 @@ class TopicController extends Controller
             $request->session()->forget(['is_course_get', 'course_slug']);
         }
         $course = Course::where('slug', $slug)->firstOrFail();
+        $topic_id = $course->topics()->first()->id;
         $user = auth()->user();
         $user_courses = null;
         if ($user) {
@@ -50,7 +51,7 @@ class TopicController extends Controller
             }
             User_Course::create([
                 'user_id' => $user->id,
-                'topic_id' => "1",
+                'topic_id' => $topic_id,
                 'course_id' => $course->id,
                 'completed_quizes' => "[]",
             ]);
@@ -61,6 +62,7 @@ class TopicController extends Controller
     public function course_reset(Request $request, $slug)
     {
         $course = Course::where('slug', $slug)->firstOrFail();
+        $topic_id = $course->topics()->first()->id;
         $user = auth()->user();
         $user_course = null;
         if ($user) {
@@ -68,7 +70,7 @@ class TopicController extends Controller
             if ($user_course) {
                 $user_course->update([
                     'isCompleted' => false,
-                    'topic_id' => 1
+                    'topic_id' => $topic_id
                 ]);
                 return redirect()->back();
             }
