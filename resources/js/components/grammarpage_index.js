@@ -118,10 +118,11 @@ function displayWord() {
     if(!askingForKeys) {
         sound_player.classList.add('hidden')
     }else {
+        setAudio(currentWordSound);
         sound_player.classList.remove('hidden')
     }
 
-    setAudio(currentWordSound);
+
 
 
     // Display current word
@@ -145,7 +146,7 @@ function displayWord() {
     document.getElementById("submitBtn").onclick = function () {
         const unSanitizedUserInput = document.getElementById("input-word-answer").value.trim();
         const userInput = unSanitizedUserInput.replace(/[<>&'"]/g, '');
-        if ((askingForKeys && userInput === currentWordValue) || (!askingForKeys && userInput === currentWordKey)) {
+        if ((askingForKeys && userInput.toLowerCase() === currentWordValue.toLowerCase()) || (!askingForKeys && userInput.toLowerCase() === currentWordKey.toLowerCase())) {
             // If user input matches the translation
             // Change button color and clear input field
             document.getElementById("submitBtn").classList.remove("bg-red-500");

@@ -13,6 +13,7 @@
 </div>
 
 <script>
+
     const audio = document.createElement('audio');
     const playButton = document.getElementById('playButton');
     const playIcon = document.getElementById('playIcon');
