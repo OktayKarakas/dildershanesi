@@ -2,13 +2,12 @@
     <!-- Grid -->
     <div class="text-center">
       <div>
-        <a class="flex-none text-xl font-semibold text-black" href="#" aria-label="Dil Dershanesi">Dil Dershanesi</a>
+        <a class="flex-none text-xl font-semibold text-black" href="#" aria-label="vocabularia">Vocabularia</a>
       </div>
       <!-- End Col -->
 
       <div class="mt-3">
-        <p class="text-gray-500">We're part of the <a class="font-semibold text-blue-600 hover:text-blue-700" href="#">Htmlstream</a> family.</p>
-        <p class="text-gray-500">© Preline. 2022 Htmlstream. All rights reserved.</p>
+        <p class="text-gray-500">Bizi sosyal medyada takip et</p>
       </div>
 
       <!-- Social Brands -->

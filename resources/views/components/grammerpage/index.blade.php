@@ -54,12 +54,12 @@
 
                                                 <div class="grow">
                                                     <p class="text-lg font-semibold text-gray-200">
-                                                        Oktay Karakaş
+                                                        Oktay
                                                     </p>
                                                 </div>
                                             </div>
                                             <p class="text-sm text-gray-400">
-                                                Oktay is good at english.
+                                                İki sene beş yıldızlı bir otelde müşteri temsilcisi olarak hizmet verdim.Aktif olarak amerikada global bir şirkette remote olarak satış temsilciliği yapmaktayım.Öğrendiğim bilgilerin hepsini hem kendime hem de yararı dokunacak arkadaşlarıma paylaşmak amacıyla bu websiteyi kurdum.Burada uyguladığım tüm metotlar kendi dil öğrenimimi sağlamamı sağlamış metotlardır.Takip edilmesi tavsiye edilir.
                                             </p>
                                         </div>
                                         <!-- End Body -->
@@ -73,13 +73,6 @@
                                 </div>
                             </div>
                             <!-- End Tooltip -->
-
-                            <ul class="text-xs text-gray-500">
-                                <li
-                                    class="inline-block relative pe-6 last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-2 before:-translate-y-1/2 before:size-1 before:bg-gray-300 before:rounded-full">
-                                    8 min read
-                                </li>
-                            </ul>
                         </div>
                     </div>
                 </div>
@@ -179,21 +172,6 @@
 
                     </button>
                 </form>
-            </div>
-            <!-- Button -->
-
-            <div class="block h-3 border-e border-gray-300 mx-3"></div>
-
-            <!-- Button -->
-            <div class="hs-tooltip inline-block">
-                <button type="button"
-                        class="hs-tooltip-toggle flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800">
-                    <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                         stroke-linecap="round" stroke-linejoin="round">
-                        <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/>
-                    </svg>
-                </button>
             </div>
             <!-- Button -->
 

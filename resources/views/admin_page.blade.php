@@ -15,6 +15,10 @@
                 <label for="course_slug">Kurs Slug</label>
                 <input name="course_slug" id="course_slug" placeholder="Kurs Slug Giriniz.."/>
             </div>
+            <div class="my-2">
+                <label for="course_background_url">Kurs Background Url</label>
+                <input name="course_background_url" id="course_background_url" placeholder="course_background_url.."/>
+            </div>
             <button class="p-2 bg-blue-500">Kurs Oluştur</button>
         </form>
     </div>
@@ -186,7 +190,8 @@
             body: JSON.stringify({
                 kurs_title: document.getElementById("course_title").value,
                 course_excerpt: document.getElementById("course_excerpt").value,
-                course_slug: document.getElementById("course_slug").value
+                course_slug: document.getElementById("course_slug").value,
+                course_background_url: document.getElementById("course_background_url").value
             })
         })
             .then(response => {

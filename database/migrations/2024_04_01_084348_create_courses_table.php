@@ -16,6 +16,7 @@ return new class extends Migration
             $table->text('title');
             $table->text('excerpt');
             $table->text('slug');
+            $table->text('background_url');
             $table->timestamps();
         });
     }

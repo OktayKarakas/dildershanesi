@@ -5,6 +5,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\AdminController;
 use \App\Http\Controllers\UserCoursesController;
+use App\Models\Course;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -21,7 +23,12 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
-    return view('index');
+    $courses = Cache::remember('course_index_page_courses', now()->addMinute(), function (){
+        return Course::all();
+    });
+    return view('index',[
+        "courses" => $courses
+    ]);
 });
 
 Route::middleware('auth')->group(function () {

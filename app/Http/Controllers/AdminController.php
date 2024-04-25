@@ -24,7 +24,7 @@ class AdminController extends Controller
             "courses" => $courses,
             "topics" => $topics,
             "konu_anlatimlari" => $konu_anlatimlari,
-            "quizler" =>$quizes
+            "quizler" => $quizes
         ]);
     }
 
@@ -34,6 +34,7 @@ class AdminController extends Controller
             'kurs_title' => 'required|string|max:255',
             'course_excerpt' => 'required|string',
             'course_slug' => 'required|string|max:255',
+            'course_background_url' => 'required|string',
         ]);
 
         // Assuming you have a Course model, you can create a new course
@@ -41,6 +42,7 @@ class AdminController extends Controller
         $course->title = $validatedData['kurs_title'];
         $course->excerpt = $validatedData['course_excerpt'];
         $course->slug = $validatedData['course_slug'];
+        $course->background_url = $validatedData["course_background_url"];
         $course->save();
 
         // Optionally, you can redirect the user after successful submission
@@ -180,7 +182,6 @@ class AdminController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
-
 
 
 }

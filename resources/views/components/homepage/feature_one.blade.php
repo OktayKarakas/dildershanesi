@@ -6,17 +6,17 @@
         <!-- Grid -->
         <div class="grid grid-cols-12 gap-2 sm:gap-6 items-center lg:-translate-x-10">
           <div class="col-span-4">
-            <img class="rounded-xl" src="https://images.unsplash.com/photo-1606868306217-dbf5046868d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1981&q=80" alt="Image Description">
+            <img class="rounded-xl h-[155px] object-cover" src="https://images.unsplash.com/photo-1501139083538-0139583c060f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Image1">
           </div>
           <!-- End Col -->
 
           <div class="col-span-3">
-            <img class="rounded-xl" src="https://images.unsplash.com/photo-1605629921711-2f6b00c6bbf4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80" alt="Image Description">
+            <img class="rounded-xl h-[225px] object-cover" src="https://images.unsplash.com/photo-1524117074681-31bd4de22ad3?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Image Description">
           </div>
           <!-- End Col -->
 
           <div class="col-span-5">
-            <img class="rounded-xl" src="https://images.unsplash.com/photo-1600194992440-50b26e0a0309?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80" alt="Image Description">
+            <img class="rounded-xl h-[400px] object-cover" src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Image Description">
           </div>
           <!-- End Col -->
         </div>
@@ -32,7 +32,7 @@
               Öğren,Pratik Yap,Soruları Çöz
             </h2>
             <p class="text-gray-500">
-              Dil Dershanesi dil öğrenirken ihtiyacın olabilecek her şeyi senin için düşündü,tek yapman gereken istikrarlı şekilde çalışmak !
+                Vocabularia ile kelime öğrenmek amaca yöneliktir.Akılda kalıcı ve pratik şekilde öğretir.
             </p>
           </div>
           <!-- End Title -->

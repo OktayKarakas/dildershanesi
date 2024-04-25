@@ -3,8 +3,8 @@
     <div
         class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7]">
         <div class="p-4 md:p-6">
-        <span class="block mb-1 text-xs font-semibold uppercase text-blue-600 dark:text-blue-500">
-          Sıfırdan Zirveye
+        <span class="block mb-1 text-xs font-semibold uppercase text-red-600 dark:text-red-600">
+          Kelimeler
         </span>
             <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-300 dark:hover:text-white">
                 {{$title}}

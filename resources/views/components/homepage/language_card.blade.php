@@ -3,8 +3,8 @@
      style="background-image: url('{{ $background_image }}')">
 </div>
 <div class="p-4 md:p-6">
-              <span class="block mb-1 text-xs font-semibold uppercase text-blue-600">
-                  Sıfırdan Zirveye
+              <span class="block mb-1 text-xs font-semibold uppercase text-red-600">
+                  Kelimeler
               </span>
     <h3 class="text-xl font-semibold text-gray-800">
         {{$title}}
