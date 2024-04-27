@@ -31,7 +31,7 @@ class KonuController extends Controller
         if (!isset($user_course)) {
             $user_course = User_Course::create([
                 'user_id' => $user->id,
-                'topic_id' => "1",
+                'topic_id' => $topic->id,
                 'course_id' => $course->id,
                 'completed_quizes' => "[]",
             ]);

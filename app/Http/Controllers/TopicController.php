@@ -10,7 +10,7 @@ class TopicController extends Controller
 {
     public function show(Request $request, $slug)
     {
-        $course = Cache::remember('course_' . $slug, now()->addMinute(), function () use ($slug) {
+        $course = Cache::remember('course_' . $slug, now()->addMinutes(5), function () use ($slug) {
             return Course::where('slug', $slug)->firstOrFail();
         });
         $user = auth()->user();
