@@ -40,7 +40,7 @@ Route::get('/', function () {
     }
 
     // Set the number of items per page
-    $perPage = 3; // Default number of items per page
+    $perPage = 6; // Default number of items per page
     if (request()->has('per_page')) {
         $perPage = (int) request('per_page');
     }

@@ -36,7 +36,9 @@
                 </div>
             </a>
         @endforeach
-    @else
-        <p class="text-center text-lg my-5 text-gray-600">There is no bookmarks</p>
+    @else<div class="flex items-center w-full flex-col">
+        <p class="text-center text-lg my-5 text-gray-600">Beğendiğin Gönderi Bulamadık</p>
+        <a href="/" class="text-center text-blue-500">Ana Sayfaya Dön</a>
+    </div>
     @endif
 </x-general.layout>
