@@ -24,17 +24,17 @@
 
         <div class="hidden sm:flex sm:items-center sm:w-full sm:justify-between">
             <p class="text-sm text-gray-700 leading-5 dark:text-gray-400">
-                {!! __('Showing') !!}
+                {!! __('Sonuçlardan') !!}
                 @if ($paginator->firstItem())
                     <span class="font-medium">{{ $paginator->firstItem() }}</span>
-                    {!! __('to') !!}
+                    {!! __('ile') !!}
                     <span class="font-medium">{{ $paginator->lastItem() }}</span>
                 @else
                     {{ $paginator->count() }}
                 @endif
-                {!! __('of') !!}
+                {!! __('gösteriliyor.Toplam') !!}
                 <span class="font-medium">{{ $paginator->total() }}</span>
-                {!! __('results') !!}
+                {!! __('Sonuç.') !!}
             </p>
 
             <div class="ml-4 flex-shrink-0">
