@@ -14,11 +14,11 @@ class KonuController extends Controller
     public function show(Request $request, $course_slug, $topic_slug)
     {
 
-        $course = Cache::remember('course_' . $course_slug, now()->addMinute(), function () use ($course_slug) {
+        $course = Cache::remember('course_' . $course_slug, now()->addMonth(), function () use ($course_slug) {
             return Course::where('slug', $course_slug)->firstOrFail();
         });
 
-        $topic = Cache::remember('topic_' . $topic_slug, now()->addMinute(), function () use ($topic_slug) {
+        $topic = Cache::remember('topic_' . $topic_slug, now()->addMonth(), function () use ($topic_slug) {
             return Topic::where('slug', $topic_slug)->firstOrFail();
         });
 
@@ -36,13 +36,13 @@ class KonuController extends Controller
                 'completed_quizes' => "[]",
             ]);
         }
-        $current_topic_row_number = Cache::remember('current_topic_row_number_' . $course->slug . '_' . $topic->slug, now()->addMinute(), function () use ($course, $topic) {
+        $current_topic_row_number = Cache::remember('current_topic_row_number_' . $course->slug . '_' . $topic->slug, now()->addMonth(), function () use ($course, $topic) {
             return Topic::where('course_id', $course->id)
                 ->where('id', $topic->id)
                 ->value('id');
         });
 
-        $next_topic = Cache::remember('next_topic_' . $course->slug . '_' . $current_topic_row_number, now()->addMinute(), function () use ($course, $current_topic_row_number) {
+        $next_topic = Cache::remember('next_topic_' . $course->slug . '_' . $current_topic_row_number, now()->addMonth(), function () use ($course, $current_topic_row_number) {
             return Topic::where('course_id', $course->id)
                 ->where('id', '>', $current_topic_row_number)
                 ->orderBy('id', 'asc')
@@ -50,7 +50,7 @@ class KonuController extends Controller
                 ->first();
         });
 
-        $previous_topic = Cache::remember('previous_topic_' . $course->slug . '_' . $current_topic_row_number, now()->addMinute(), function () use ($course, $current_topic_row_number) {
+        $previous_topic = Cache::remember('previous_topic_' . $course->slug . '_' . $current_topic_row_number, now()->addMonth(), function () use ($course, $current_topic_row_number) {
             return Topic::where('course_id', $course->id)
                 ->where('id', '<', $current_topic_row_number)
                 ->orderBy('id', 'desc')
@@ -58,7 +58,7 @@ class KonuController extends Controller
                 ->first();
         });
 
-        $konu_anlatimi = Cache::remember('konu_anlatimi_' . $course->slug . '_' . $topic->slug, now()->addMinute(), function () use ($course, $topic) {
+        $konu_anlatimi = Cache::remember('konu_anlatimi_' . $course->slug . '_' . $topic->slug, now()->addMonth(), function () use ($course, $topic) {
             return $course->Konu_anlatimlari()->where('topic_id', $topic->id)->firstOrFail();
         });
         if ($user) {

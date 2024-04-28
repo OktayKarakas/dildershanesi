@@ -28,7 +28,7 @@ use Illuminate\Support\Collection;
 Route::get('/', function () {
     $cacheKey = 'course_index_page_courses';
 
-    $courses = Cache::remember($cacheKey, now()->addMinute(), function (){
+    $courses = Cache::remember($cacheKey, now()->addMonth(), function (){
         return Course::all();
     });
 
