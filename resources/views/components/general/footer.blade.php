@@ -2,7 +2,7 @@
     <!-- Grid -->
     <div class="text-center">
       <div>
-        <a class="flex-none text-xl font-semibold text-black" href="#" aria-label="vocabularia">Vocabularia</a>
+        <a class="flex-none text-xl font-semibold text-black" href="#" aria-label="Kelimelerin">Kelimelerin</a>
       </div>
       <!-- End Col -->
 

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>Vocabularia</title>
+        <title>Kelimelerin</title>
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.jpg') }}">
 
         <!-- Fonts -->

@@ -4,8 +4,8 @@
     <div class="grid md:grid-cols-2 gap-4 md:gap-8 xl:gap-20 md:items-center">
         <div>
             <h1 class="block text-3xl font-bold text-gray-800 sm:text-4xl lg:text-6xl lg:leading-tight">
-                Kelimeleri Amaca Yönelik <span class="text-blue-600">Vocabularia</span> ile öğren.</h1>
-            <p class="mt-3 text-lg text-gray-800">Dizilerin,filmlerin ve kitapların içinde geçen potansiyel bilmediğin kelimeleri öğren,vocabularia'da pratik yap sonrasında ise dizinin keyfini ingilizce olarak çıkar!</p>
+                Kelimeleri Amaca Yönelik <span class="text-blue-600">Kelimelerin</span> ile öğren.</h1>
+            <p class="mt-3 text-lg text-gray-800">Dizilerin,filmlerin ve kitapların içinde geçen potansiyel bilmediğin kelimeleri öğren,Kelimelerin'de pratik yap sonrasında ise dizinin keyfini ingilizce olarak çıkar!</p>
 
             <!-- Buttons -->
             <div class="mt-7 grid gap-3 w-full sm:inline-flex">

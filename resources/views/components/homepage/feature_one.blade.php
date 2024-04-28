@@ -32,7 +32,7 @@
               Öğren,Pratik Yap,Soruları Çöz
             </h2>
             <p class="text-gray-500">
-                Vocabularia ile kelime öğrenmek amaca yöneliktir.Akılda kalıcı ve pratik şekilde öğretir.
+                Kelimelerin ile kelime öğrenmek amaca yöneliktir.Akılda kalıcı ve pratik şekilde öğretir.
             </p>
           </div>
           <!-- End Title -->
