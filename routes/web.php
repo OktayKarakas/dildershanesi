@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,14 +23,45 @@ use Illuminate\Http\Request;
 |
 */
 
+use Illuminate\Support\Collection;
+
 Route::get('/', function () {
-    $courses = Cache::remember('course_index_page_courses', now()->addMinute(), function (){
+    $cacheKey = 'course_index_page_courses';
+
+    $courses = Cache::remember($cacheKey, now()->addMinute(), function (){
         return Course::all();
     });
-    return view('index',[
+
+    // Apply search filter if present
+    if(request('search')){
+        $courses = $courses->filter(function ($course) {
+            return stripos($course->title, request('search')) !== false;
+        });
+    }
+
+    // Set the number of items per page
+    $perPage = 3; // Default number of items per page
+    if (request()->has('per_page')) {
+        $perPage = (int) request('per_page');
+    }
+
+    // Paginate the filtered or all courses
+    if ($courses instanceof Collection) {
+        $currentPage = request()->get('page', 1); // Get current page from request
+        $currentPageItems = $courses->slice(($currentPage - 1) * $perPage, $perPage)->all();
+        $courses = new LengthAwarePaginator($currentPageItems, $courses->count(), $perPage, $currentPage);
+    } else {
+        $courses = $courses->paginate($perPage);
+    }
+
+    return view('index', [
         "courses" => $courses
     ]);
 });
+
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/settings', [ProfileController::class, 'edit'])->name('profile.edit');

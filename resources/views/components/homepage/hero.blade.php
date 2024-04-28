@@ -19,6 +19,7 @@
                     </svg>
                 </a>
             </div>
+
             <!-- End Buttons -->
         </div>
         <!-- End Col -->
