@@ -162,7 +162,7 @@ function displayWord() {
                 }
                 document.getElementById("times-repeated").textContent = "Tekrar Sayısı : " + word_row;
 
-                if (word_row >= 4) {
+                if (word_row >= 3) {
                     document.getElementById("next_button").classList.remove("opacity-50", "cursor-not-allowed", "pointer-events-none");
                     document.getElementById("next_button").disabled = false;
                 }

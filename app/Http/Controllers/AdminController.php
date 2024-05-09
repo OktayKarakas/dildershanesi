@@ -151,7 +151,45 @@ class AdminController extends Controller
 
             // Assign values to the question instance
             $question->quiz_id = $validatedData['quiz_id'];
-            $question->question = $validatedData['question_body'];
+            $arrayData = json_decode($validatedData['question_body'], true);
+            $keysArray = array_keys($arrayData);
+            shuffle($keysArray); // Shuffle the keys
+
+
+
+            function createQuestion($x = 0,$keysArray,$arrayData){
+                $to_json = [];
+                $correct_answer_number = rand(1, 4);
+                $correct_answer = "key" . $correct_answer_number;
+                $checked_random_index = [];
+                $currentKey = $keysArray[$x]; // Get the current key from shuffled array
+
+                for ($i = 1; $i <= 4; $i++) {
+                    if ($correct_answer_number === $i) {
+                        $to_json[$correct_answer] = $arrayData[$currentKey];
+                    } else {
+                        $randomIndex = rand(0, count($keysArray) - 1);
+                        while (($randomIndex === $x || in_array($randomIndex, $checked_random_index)) && count($keysArray) !== count($checked_random_index)) {
+                            $randomIndex = rand(0, count($keysArray) - 1);
+                        }
+
+                        if (!in_array($randomIndex, $checked_random_index)) {
+                            $checked_random_index[] = $randomIndex;
+                        }
+
+                        if (count($keysArray) !== count($checked_random_index)) {
+                            $to_json["key" . $i] = $arrayData[$keysArray[$randomIndex]];
+                        }
+                    }
+                }
+
+                $to_json["correct_answer"] = $correct_answer;
+                $to_json["title"] = $currentKey;
+                $to_json["explain"] = "Doğru Cevap " . $arrayData[$currentKey];
+                return json_encode($to_json);
+            }
+
+            $question->question = createQuestion(0,$keysArray,$arrayData);
 
             // Determine the question type based on the quiz_question_type field
             switch ($validatedData['quiz_question_type']) {
