@@ -26,7 +26,7 @@
                                Topic: {{$topic->title}}
                             </p>
                             <p class="text-sm text-gray-500">
-                                Konu: {{$konu_anlatimi->title}}
+                                Konu: {!! $konu_anlatimi->title !!}
                             </p>
                         </div>
                         <div class="ps-3">
