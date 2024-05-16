@@ -3,6 +3,7 @@
 
 <head>
     <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2444807945895967"
             crossorigin="anonymous"></script>
 
