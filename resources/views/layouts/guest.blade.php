@@ -4,6 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2444807945895967"
+                crossorigin="anonymous"></script>
 
         <title>Kelimelerin</title>
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.jpg') }}">
