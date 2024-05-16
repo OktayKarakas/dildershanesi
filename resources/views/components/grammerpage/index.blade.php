@@ -93,11 +93,11 @@
                     <input id="input-word-answer" name="input-word-answer" type="text"
                            class="border-gray-300 border rounded-md px-4 py-2 mb-4 w-full"
                            placeholder="Karşılığını giriniz.">
-                    <p id="false-answer-p" class="text-red-400 my-5 hidden">Yanlış Cevap ! Tekrar Deneyin.</p>
+                    <p id="false-answer-p" class="text-red-400 my-5 hidden">Eşleşmedi ! Tekrar Deneyin.</p>
                     <div class="flex gap-5 w-full justify-center">
                         <button type="button" id="word-hint"
                                 class="self-end bg-yellow-500 text-sm text-white font-semibold py-2 px-4 rounded-md hover:bg-yellow-600 transition duration-300">
-                            Bilmiyorum
+                            Göster
                         </button>
                         <button id="submitBtn"
                                 class="bg-green-500 text-white text-sm font-semibold py-2 px-4 rounded-md hover:bg-green-600 transition duration-300">

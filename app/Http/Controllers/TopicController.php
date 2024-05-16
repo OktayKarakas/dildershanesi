@@ -10,7 +10,7 @@ class TopicController extends Controller
 {
     public function show(Request $request, $slug)
     {
-        $course = Cache::remember('course_' . $slug, now()->addMinute(), function () use ($slug) {
+        $course = Cache::remember('course_' . $slug, now()->addMonth(), function () use ($slug) {
             return Course::where('slug', $slug)->firstOrFail();
         });
         $user = auth()->user();
@@ -22,7 +22,7 @@ class TopicController extends Controller
 
         $topics = $course->topics()->paginate(5);
 
-        $topic_count = Cache::remember('course_topic_count_' . $course->slug, now()->addMinute(), function () use ($course) {
+        $topic_count = Cache::remember('course_topic_count_' . $course->slug, now()->addMonth(), function () use ($course) {
             return $course->topics()->count();
         });
 

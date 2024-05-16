@@ -52,13 +52,16 @@ if (quiz_json) {
         }
         let quiz_question_keys = current_question ? Object.keys(current_question) : null;
         document.getElementById('quiz_question').textContent = current_question["title"]
+        function handleQuizQuestionClick() {
+            document.getElementById('quiz_question_explanation').classList.toggle('hidden');
+            this.removeEventListener('click', handleQuizQuestionClick);
+        }
+
         document.getElementById('quiz_question_explanation').textContent = current_question["explain"]
         const current_question_answer = current_question[current_question["correct_answer"]]
         let container = document.getElementById("button-container")
         container.innerHTML = ""
-        document.getElementById('quiz_question').addEventListener('click',function() {
-            document.getElementById('quiz_question_explanation').classList.toggle('hidden');
-        })
+        document.getElementById('quiz_question').addEventListener('click', handleQuizQuestionClick);
         for (let i = 0; i < quiz_question_keys.length - 3; i++) {
             const itemElement = createItemElement(current_question[quiz_question_keys[i]], i)
             itemElement.addEventListener('click', function () {
@@ -162,7 +165,7 @@ function displayWord() {
                 }
                 document.getElementById("times-repeated").textContent = "Tekrar Sayısı : " + word_row;
 
-                if (word_row >= 4) {
+                if (word_row >= 3) {
                     document.getElementById("next_button").classList.remove("opacity-50", "cursor-not-allowed", "pointer-events-none");
                     document.getElementById("next_button").disabled = false;
                 }
