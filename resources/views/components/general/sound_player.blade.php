@@ -9,7 +9,7 @@
             </svg>
         </button>
     </div>
-    <p class="text-gray-600">Listen to the audio</p>
+    <p class="text-gray-600">Sesi Dinle</p>
 </div>
 
 <script>
