@@ -59,7 +59,12 @@
                                                 </div>
                                             </div>
                                             <p class="text-sm text-gray-400">
-                                                İki sene beş yıldızlı bir otelde müşteri temsilcisi olarak hizmet verdim.Aktif olarak amerikada global bir şirkette remote olarak satış temsilciliği yapmaktayım.Öğrendiğim bilgilerin hepsini hem kendime hem de yararı dokunacak arkadaşlarıma paylaşmak amacıyla bu websiteyi kurdum.Burada uyguladığım tüm metotlar kendi dil öğrenimimi sağlamamı sağlamış metotlardır.Takip edilmesi tavsiye edilir.
+                                                İki sene beş yıldızlı bir otelde müşteri temsilcisi olarak hizmet
+                                                verdim.Aktif olarak amerikada global bir şirkette remote olarak satış
+                                                temsilciliği yapmaktayım.Öğrendiğim bilgilerin hepsini hem kendime hem
+                                                de yararı dokunacak arkadaşlarıma paylaşmak amacıyla bu websiteyi
+                                                kurdum.Burada uyguladığım tüm metotlar kendi dil öğrenimimi sağlamamı
+                                                sağlamış metotlardır.Takip edilmesi tavsiye edilir.
                                             </p>
                                         </div>
                                         <!-- End Body -->
@@ -79,6 +84,12 @@
             </div>
         </div>
         <!-- End Avatar Media -->
+        <script type="text/javascript"
+                src="https://udbaa.com/bnr.php?section=General2&pub=915192&format=300x250&ga=g"></script>
+        <noscript><a href="https://yllix.com/publishers/915192" target="_blank"><img
+                    src="//ylx-aff.advertica-cdn.com/pub/300x250.png"
+                    style="border:none;margin:0;padding:0;vertical-align:baseline;"
+                    alt="ylliX - Online Advertising Network"/></a></noscript>
 
         <!-- Content -->
         <div class="space-y-5 md:space-y-8 break-words">
@@ -88,7 +99,7 @@
                 <div id="word-card"
                      class="bg-white rounded-lg p-8 shadow-md max-w-md w-full flex flex-col items-center mx-auto">
                     <p id="word-asked" class="text-2xl font-semibold mb-4"></p>
-                    <x-general.sound_player />
+                    <x-general.sound_player/>
                     <p id="times-repeated" class="text-gray-400 my-2">Tekrar sayısı : 0</p>
                     <input id="input-word-answer" name="input-word-answer" type="text"
                            class="border-gray-300 border rounded-md px-4 py-2 mb-4 w-full"
@@ -165,7 +176,9 @@
                             <path
                                 d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
                         </svg>
-                        <svg class="{{$user_bookmark ? '' : 'hidden '}}flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" id="like_form_liked_svg">
+                        <svg class="{{$user_bookmark ? '' : 'hidden '}}flex-shrink-0 size-4"
+                             xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                             id="like_form_liked_svg">
                             <path fill="currentColor"
                                   d="m12 21l-1.45-1.3q-2.525-2.275-4.175-3.925T3.75 12.812T2.388 10.4T2 8.15Q2 5.8 3.575 4.225T7.5 2.65q1.3 0 2.475.55T12 4.75q.85-1 2.025-1.55t2.475-.55q2.35 0 3.925 1.575T22 8.15q0 1.15-.387 2.25t-1.363 2.412t-2.625 2.963T13.45 19.7z"/>
                         </svg>

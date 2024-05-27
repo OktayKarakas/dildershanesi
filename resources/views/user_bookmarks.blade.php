@@ -1,4 +1,10 @@
 <x-general.layout>
+    <script type="text/javascript"
+            src="https://udbaa.com/bnr.php?section=General2&pub=915192&format=300x250&ga=g"></script>
+    <noscript><a href="https://yllix.com/publishers/915192" target="_blank"><img
+                src="//ylx-aff.advertica-cdn.com/pub/300x250.png"
+                style="border:none;margin:0;padding:0;vertical-align:baseline;"
+                alt="ylliX - Online Advertising Network"/></a></noscript>
     @if($bookmarks->count())
         @foreach($bookmarks as $bookmark)
             @php
@@ -15,7 +21,8 @@
                     $topic_general = null;
                 }
             @endphp
-            <a class="m-5 group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition dark:bg-slate-900 dark:border-gray-800" href="{{"/languages/$course->slug/$topic_general/$topic->slug"}}">
+            <a class="m-5 group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition dark:bg-slate-900 dark:border-gray-800"
+               href="{{"/languages/$course->slug/$topic_general/$topic->slug"}}">
                 <div class="p-4 md:p-5">
                     <div class="flex justify-between items-center">
                         <div>
@@ -23,19 +30,24 @@
                                 Course: {{$course->title}}
                             </h3>
                             <p class="text-sm text-gray-500">
-                               Topic: {{$topic->title}}
+                                Topic: {{$topic->title}}
                             </p>
                         </div>
                         <div class="ps-3">
-                            <svg class="flex-shrink-0 size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                            <svg class="flex-shrink-0 size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m9 18 6-6-6-6"/>
+                            </svg>
                         </div>
                     </div>
                 </div>
             </a>
         @endforeach
-    @else<div class="flex items-center w-full flex-col">
-        <p class="text-center text-lg my-5 text-gray-600">Beğendiğin Gönderi Bulamadık</p>
-        <a href="/" class="text-center text-blue-500">Ana Sayfaya Dön</a>
-    </div>
+    @else
+        <div class="flex items-center w-full flex-col">
+            <p class="text-center text-lg my-5 text-gray-600">Beğendiğin Gönderi Bulamadık</p>
+            <a href="/" class="text-center text-blue-500">Ana Sayfaya Dön</a>
+        </div>
     @endif
 </x-general.layout>
