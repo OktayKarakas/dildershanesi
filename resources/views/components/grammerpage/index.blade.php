@@ -84,7 +84,7 @@
             </div>
         </div>
         <!-- End Avatar Media -->
-        <div class="mx-auto w-full">
+        <div class="flex items-center justify-center">
         <script type="text/javascript"
                 src="https://udbaa.com/bnr.php?section=General2&pub=915192&format=300x250&ga=g"></script>
         <noscript><a href="https://yllix.com/publishers/915192" target="_blank"><img
