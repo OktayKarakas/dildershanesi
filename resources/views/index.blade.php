@@ -23,7 +23,7 @@
                        class="mt-5 mx-auto w-64 px-4 py-2 text-base border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"/>
                 <div class="flex flex-col my-2 gap-2 sm:my-0 sm:gap-0 sm:inline-block">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Ara</button>
-                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Sıfırla</button>
+                    <button type="button" id="reset-search" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Sıfırla</button>
                 </div>
             </div>
         </form>
