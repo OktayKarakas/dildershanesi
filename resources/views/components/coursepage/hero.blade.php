@@ -54,17 +54,37 @@
         <!-- End Buttons -->
     </div>
     <div class="flex items-center justify-center">
-    <script type="text/javascript"
-            src="https://udbaa.com/bnr.php?section=General2&pub=915192&format=300x250&ga=g"></script>
-    <noscript><a href="https://yllix.com/publishers/915192" target="_blank"><img
-                src="//ylx-aff.advertica-cdn.com/pub/300x250.png"
-                style="border:none;margin:0;padding:0;vertical-align:baseline;"
-                alt="ylliX - Online Advertising Network"/></a></noscript>
+        <script type="text/javascript"
+                src="https://udbaa.com/bnr.php?section=General2&pub=915192&format=300x250&ga=g"></script>
+        <noscript><a href="https://yllix.com/publishers/915192" target="_blank"><img
+                    src="//ylx-aff.advertica-cdn.com/pub/300x250.png"
+                    style="border:none;margin:0;padding:0;vertical-align:baseline;"
+                    alt="ylliX - Online Advertising Network"/></a></noscript>
     </div>
 </div>
-<script>
-    @if(!$course->done)
-    alert("Bu Kurs Yapım Aşamasındadır.Kursu Kullanabilirsiniz fakat hatalarla karşılaşabilirsiniz.Ayrıca Kursu bitirmeniz durumunda yeni eklenen topiclere bakmak için yine ziyaret etmeyi unutma :)")
-    @endif
-</script>
+<div id="courseModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all max-w-lg w-full">
+        <div class="bg-gray-100 px-4 py-2">
+            <h5 class="text-lg font-semibold">Kurs Bilgisi</h5>
+        </div>
+        <div class="p-4">
+            Bu Kurs Yapım Aşamasındadır. Kursu Kullanabilirsiniz fakat hatalarla karşılaşabilirsiniz. Ayrıca Kursu
+            bitirmeniz durumunda yeni eklenen topiclere bakmak için yine ziyaret etmeyi unutma :)
+        </div>
+        <div class="bg-gray-100 px-4 py-2 flex justify-end">
+            <button id="closeModal" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Kapat</button>
+        </div>
+    </div>
+</div>
+
+@if(!$course->done)
+    <script>
+        $(document).ready(function () {
+            $('#courseModal').removeClass('hidden');
+            $('#closeModal').click(function () {
+                $('#courseModal').addClass('hidden');
+            });
+        });
+    </script>
+@endif
 <!-- End Hero -->
