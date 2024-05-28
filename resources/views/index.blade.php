@@ -16,7 +16,7 @@
                 alt="ylliX - Online Advertising Network"/></a></noscript>
     </div>
     <div>
-        <form id="search-form" method="GET" id="form-anchor" class="w-full flex items-center"
+        <form method="GET" id="form-anchor" class="w-full flex items-center"
               action="{{ url()->current() }}#form-anchor">
             <div class="mx-auto">
                 <input name="search" id="search-input" placeholder="Kurs Ara"
@@ -37,6 +37,6 @@
 <script>
     document.getElementById('reset-search').addEventListener('click', function () {
         document.getElementById('search-input').value = '';
-        document.getElementById('search-form').submit();
+        document.getElementById('form-anchor').submit();
     });
 </script>
