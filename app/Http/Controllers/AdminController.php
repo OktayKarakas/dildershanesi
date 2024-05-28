@@ -8,6 +8,7 @@ use App\Models\Question;
 use App\Models\Quizler;
 use App\Models\Topic;
 use App\Models\Konu_Anlatimi;
+use App\Models\User_Course;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use mysql_xdevapi\Exception;
@@ -65,6 +66,7 @@ class AdminController extends Controller
         $topic->title = $validatedData['topic_title'];
         $topic->excerpt = $validatedData['topic_excerpt'];
         $topic->slug = $validatedData['topic_slug'];
+        User_Course::where('course_id', $topic->course_id)->update(['isCompleted' => false]);
         switch ($validatedData['topic_general']) {
             case 'grammar':
                 $topic->isGrammar = true;

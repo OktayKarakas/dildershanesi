@@ -62,4 +62,9 @@
                 alt="ylliX - Online Advertising Network"/></a></noscript>
     </div>
 </div>
+<script>
+    @if(!$course->done)
+    alert("Bu Kurs Yapım Aşamasındadır.Kursu Kullanabilirsiniz fakat hatalarla karşılaşabilirsiniz.Ayrıca Kursu bitirmeniz durumunda yeni eklenen topiclere bakmak için yine ziyaret etmeyi unutma :)")
+    @endif
+</script>
 <!-- End Hero -->
