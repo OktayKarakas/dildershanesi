@@ -16,10 +16,10 @@
                 alt="ylliX - Online Advertising Network"/></a></noscript>
     </div>
     <div>
-        <form method="GET" id="form-anchor" class="w-full flex items-center"
+        <form id="search-form" method="GET" id="form-anchor" class="w-full flex items-center"
               action="{{ url()->current() }}#form-anchor">
             <div class="mx-auto">
-                <input name="search" placeholder="Kurs Ara"
+                <input name="search" id="search-input" placeholder="Kurs Ara"
                        class="mt-5 mx-auto w-64 px-4 py-2 text-base border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"/>
                 <div class="flex flex-col my-2 gap-2 sm:my-0 sm:gap-0 sm:inline-block">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Ara</button>
