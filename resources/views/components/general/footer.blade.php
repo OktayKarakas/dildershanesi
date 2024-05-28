@@ -8,6 +8,7 @@
 
       <div class="mt-3">
         <p class="text-gray-500">Bizi sosyal medyada takip et</p>
+          <p class="text-gray-500">Kelimelerin.com siteyi geliştirmek için çerezler kullanmaktadır.Siteyi kullanmanız durumunda çerezleri kabul etmiş sayılırsınız.</p>
       </div>
 
       <!-- Social Brands -->
